@@ -33,13 +33,13 @@
             this.btn_Modificar = new System.Windows.Forms.Button();
             this.btn_Eliminar = new System.Windows.Forms.Button();
             this.txt_Buscador = new System.Windows.Forms.TextBox();
-            this.btn_Buscar = new System.Windows.Forms.Button();
             this.btn_Menu = new System.Windows.Forms.Button();
             this.btn_Login = new System.Windows.Forms.Button();
             this.toolTip_infoControles = new System.Windows.Forms.ToolTip(this.components);
             this.cmb_tablas = new System.Windows.Forms.ComboBox();
             this.btn_Imprimir = new System.Windows.Forms.Button();
             this.dgv_Tablas = new System.Windows.Forms.DataGridView();
+            this.btn_Buscar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Tablas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,17 +83,6 @@
             this.txt_Buscador.Size = new System.Drawing.Size(168, 20);
             this.txt_Buscador.TabIndex = 2;
             this.toolTip_infoControles.SetToolTip(this.txt_Buscador, "Barra de búsqueda.");
-            // 
-            // btn_Buscar
-            // 
-            this.btn_Buscar.Location = new System.Drawing.Point(445, 10);
-            this.btn_Buscar.Name = "btn_Buscar";
-            this.btn_Buscar.Size = new System.Drawing.Size(41, 21);
-            this.btn_Buscar.TabIndex = 3;
-            this.btn_Buscar.Text = "Q";
-            this.toolTip_infoControles.SetToolTip(this.btn_Buscar, "Busca un elemento.");
-            this.btn_Buscar.UseVisualStyleBackColor = true;
-            this.btn_Buscar.Click += new System.EventHandler(this.btn_Buscar_Click);
             // 
             // btn_Menu
             // 
@@ -150,6 +139,18 @@
             this.dgv_Tablas.Name = "dgv_Tablas";
             this.dgv_Tablas.Size = new System.Drawing.Size(426, 218);
             this.dgv_Tablas.TabIndex = 5;
+            // 
+            // btn_Buscar
+            // 
+            this.btn_Buscar.BackgroundImage = global::TP_ComidaRapida.Properties.Resources.Lupa_;
+            this.btn_Buscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_Buscar.Location = new System.Drawing.Point(445, 10);
+            this.btn_Buscar.Name = "btn_Buscar";
+            this.btn_Buscar.Size = new System.Drawing.Size(41, 21);
+            this.btn_Buscar.TabIndex = 3;
+            this.toolTip_infoControles.SetToolTip(this.btn_Buscar, "Busca un elemento.");
+            this.btn_Buscar.UseVisualStyleBackColor = true;
+            this.btn_Buscar.Click += new System.EventHandler(this.btn_Buscar_Click);
             // 
             // Gestiones
             // 

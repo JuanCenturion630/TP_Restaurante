@@ -155,7 +155,7 @@ namespace TP_ComidaRapida
                     sw.WriteLine("CF ETA 32000023DGI (logotipo fiscal)");
                 }
 
-                Console.WriteLine("Ticket de factura generado correctamente.");
+                MessageBox.Show("Ticket de factura generado correctamente.");
             }
             catch (Exception ex)
             {

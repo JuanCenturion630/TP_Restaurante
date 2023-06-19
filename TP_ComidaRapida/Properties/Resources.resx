@@ -148,9 +148,6 @@
   <data name="Hamburguesa_Chica" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Hamburguesa_Chica.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="NCI_Visuals_Food_Hamburger" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hamburguesa_Prueba..jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Carne_Prueba." type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Carne_Prueba..jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -160,19 +157,25 @@
   <data name="Gaseosa_Prueba." type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Gaseosa_Prueba..jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Coca_Grande" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Coca_Grande.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Carne_Chica" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Carne_Chica.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Carne_Media" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Carne_Media.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Hamburguesa_Grande" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hamburguesa_Grande.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Ojo_Prueba." type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ojo_Prueba..jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Coca_Grande" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Coca_Grande.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Hamburguesa_Grande" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hamburguesa_Grande.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NCI_Visuals_Food_Hamburger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hamburguesa_Prueba..jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lupa." type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lupa..jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

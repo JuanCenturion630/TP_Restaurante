@@ -193,6 +193,16 @@ namespace TP_ComidaRapida.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Lupa_ {
+            get {
+                object obj = ResourceManager.GetObject("Lupa.", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NCI_Visuals_Food_Hamburger {
             get {
                 object obj = ResourceManager.GetObject("NCI_Visuals_Food_Hamburger", resourceCulture);

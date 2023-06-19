@@ -153,6 +153,8 @@ namespace TP_ComidaRapida
             }
         }
 
+        bool sePresionoEliminar = false;
+
         private void btn_Eliminar_Click(object sender, EventArgs e)
         {
             try
@@ -167,6 +169,8 @@ namespace TP_ComidaRapida
                         MessageBox.Show("No se pueden borrar los tickets.");
                     else
                     {
+                        sePresionoEliminar = true;
+                        MessageBox.Show(dgv_Tablas.SelectedCells[0].RowIndex.ToString());
                         if (MessageBox.Show("¿Desea borrar la fila?", "Aviso",
                                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
@@ -176,6 +180,7 @@ namespace TP_ComidaRapida
                             {
                                 case 0:
                                     //Obtiene el valor de la celda 3 de la fila X, es decir, la columna "usuario" de la tabla SQL.
+                                    MessageBox.Show(dgv_Tablas.Rows[i].Cells[3].Value.ToString());
                                     string usuario = dgv_Tablas.Rows[i].Cells[3].Value.ToString();
                                     bd.Delete("Usuario", $"usuario='{usuario}'");
                                     RefrescarDGV(dgv_Tablas, "usuario");
@@ -277,14 +282,18 @@ namespace TP_ComidaRapida
 
         private void Gestiones_Activated(object sender, EventArgs e)
         {
-            switch (cmb_tablas.SelectedIndex)
+            if (!sePresionoEliminar)
             {
-                case 0:
-                    RefrescarDGV(dgv_Tablas, "usuario");
-                    break;
-                case 1:
-                    RefrescarDGV(dgv_Tablas, "comida");
-                    break;
+                switch (cmb_tablas.SelectedIndex)
+                {
+                    case 0:
+                        RefrescarDGV(dgv_Tablas, "usuario");
+                        break;
+                    case 1:
+                        RefrescarDGV(dgv_Tablas, "comida");
+                        break;
+                }
+                sePresionoEliminar = false;
             }
         }
     }
