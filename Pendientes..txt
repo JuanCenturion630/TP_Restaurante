@@ -1,0 +1,2 @@
+1. En el Form "Menu" el guardado de las compras en la base de datos no esta programado.
+2. (OPCIONAL) Botón Imprimir Ticket en el Form "Gestiones".
