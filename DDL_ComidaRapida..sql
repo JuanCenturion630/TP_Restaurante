@@ -8,13 +8,14 @@ CREATE TABLE IF NOT EXISTS Usuario (
 	nombre VARCHAR(25) NOT NULL,
 	apellido VARCHAR(25) NOT NULL,
 	usuario VARCHAR(25) NOT NULL,
-	CONSTRAINT cu_user UNIQUE (usuario), /*"cu": clave única. Si se intenta insertar el mismo usuario para dos personas, se impide. */
 	pass VARCHAR(16) NOT NULL,
 	fechaNacimiento DATE NOT NULL,
 	edad TINYINT UNSIGNED NOT NULL,
 	horaIngreso TIME NOT NULL,
 	horaSalida TIME NOT NULL
 );
+
+ALTER TABLE Usuario ADD COLUMN despedido BOOLEAN;
 
 CREATE TABLE IF NOT EXISTS Sesion (
 	id TINYINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -23,6 +24,8 @@ CREATE TABLE IF NOT EXISTS Sesion (
 	ingresioSesion DATETIME,
 	salidaSesion DATETIME
 );
+
+ALTER TABLE Sesion CHANGE ingresioSesion ingresoSesion DATETIME;
 
 CREATE TABLE IF NOT EXISTS Empresa (
 	nombre VARCHAR(25) NOT NULL,
@@ -48,10 +51,10 @@ CREATE TABLE IF NOT EXISTS DetallesFormaPago (
 CREATE TABLE IF NOT EXISTS Comida (
 	id TINYINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	nombre VARCHAR(20) NOT NULL,
-    CONSTRAINT cu_comida UNIQUE (nombre), /*"cu": clave única. Si se intenta insertar el mismo plato dos veces, se impide. */
 	precio DECIMAL(6,2) NOT NULL
 );
 
+ALTER TABLE Comida ADD COLUMN descartado BOOLEAN;
 ALTER TABLE Comida MODIFY COLUMN nombre VARCHAR(40);
 
 CREATE TABLE IF NOT EXISTS CuerpoTicket (

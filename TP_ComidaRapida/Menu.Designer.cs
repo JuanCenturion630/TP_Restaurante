@@ -627,7 +627,7 @@
             // 
             // btn_CambiarSesion
             // 
-            this.btn_CambiarSesion.Location = new System.Drawing.Point(597, 12);
+            this.btn_CambiarSesion.Location = new System.Drawing.Point(638, 12);
             this.btn_CambiarSesion.Name = "btn_CambiarSesion";
             this.btn_CambiarSesion.Size = new System.Drawing.Size(35, 26);
             this.btn_CambiarSesion.TabIndex = 11;
@@ -657,6 +657,7 @@
             this.btn_Configuracion.Text = "C";
             this.toolTip_infoControles.SetToolTip(this.btn_Configuracion, "Cambia la configuración del menú.");
             this.btn_Configuracion.UseVisualStyleBackColor = true;
+            this.btn_Configuracion.Visible = false;
             // 
             // timer_Precio
             // 

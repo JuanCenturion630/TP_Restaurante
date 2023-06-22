@@ -18,10 +18,16 @@ namespace TP_ComidaRapida
         {
             InitializeComponent();
             ConexionSQL bd = new ConexionSQL();
-            bd.RellenarControl(combo_User,"usuario","Usuario");
+            bd.RellenarControl(combo_User, "usuario", "Usuario", "despedido=0 OR despedido IS NULL");
             ModificarControles mc = new ModificarControles();
             mc.ActualizarControles(this);
-            //bd.InsertInto("Usuario", "administrador,nombre,apellido,usuario,pass,fechaNacimiento,edad,horaIngreso,horaSalida", "1,'Diego','Hidalgo','dhidalgo23','11111111','2000-03-06',23,'08:00:00','16:00:00'");
+
+            //DateTime.Now escribe en formato "22/6/2023" que no sirve para la base de datos. Es necesario voltearla.
+            //string fechaVolteada = DateTime.Now.ToString("yyyy/MM/dd hh:MM:ss");
+
+            //Registro de sesión.
+            //int idUsuario = Convert.ToInt32(bd.Select("id", "Usuario", $"id='{combo_User.Text}'"));
+            //bd.InsertInto("Sesion", "idUsuario,ingresoSesion,salidaSesion", $"'{idUsuario}','{fechaVolteada}','0000-00-00 00:00:00'");
         }
 
         public static string usuarioActual;

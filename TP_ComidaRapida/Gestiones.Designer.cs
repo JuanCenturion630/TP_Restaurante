@@ -38,8 +38,8 @@
             this.toolTip_infoControles = new System.Windows.Forms.ToolTip(this.components);
             this.cmb_tablas = new System.Windows.Forms.ComboBox();
             this.btn_Imprimir = new System.Windows.Forms.Button();
-            this.dgv_Tablas = new System.Windows.Forms.DataGridView();
             this.btn_Buscar = new System.Windows.Forms.Button();
+            this.dgv_Tablas = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Tablas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,7 +112,8 @@
             this.cmb_tablas.Items.AddRange(new object[] {
             "Usuarios",
             "Comidas",
-            "Tickets"});
+            "Tickets",
+            "Sesiones"});
             this.cmb_tablas.Location = new System.Drawing.Point(107, 10);
             this.cmb_tablas.Name = "cmb_tablas";
             this.cmb_tablas.Size = new System.Drawing.Size(157, 21);
@@ -132,14 +133,6 @@
             this.btn_Imprimir.UseVisualStyleBackColor = true;
             this.btn_Imprimir.Click += new System.EventHandler(this.btn_Imprimir_Click);
             // 
-            // dgv_Tablas
-            // 
-            this.dgv_Tablas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Tablas.Location = new System.Drawing.Point(12, 37);
-            this.dgv_Tablas.Name = "dgv_Tablas";
-            this.dgv_Tablas.Size = new System.Drawing.Size(426, 218);
-            this.dgv_Tablas.TabIndex = 5;
-            // 
             // btn_Buscar
             // 
             this.btn_Buscar.BackgroundImage = global::TP_ComidaRapida.Properties.Resources.Lupa_;
@@ -151,6 +144,14 @@
             this.toolTip_infoControles.SetToolTip(this.btn_Buscar, "Busca un elemento.");
             this.btn_Buscar.UseVisualStyleBackColor = true;
             this.btn_Buscar.Click += new System.EventHandler(this.btn_Buscar_Click);
+            // 
+            // dgv_Tablas
+            // 
+            this.dgv_Tablas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Tablas.Location = new System.Drawing.Point(12, 37);
+            this.dgv_Tablas.Name = "dgv_Tablas";
+            this.dgv_Tablas.Size = new System.Drawing.Size(426, 218);
+            this.dgv_Tablas.TabIndex = 5;
             // 
             // Gestiones
             // 

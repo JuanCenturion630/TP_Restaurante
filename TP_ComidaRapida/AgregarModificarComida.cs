@@ -39,7 +39,7 @@ namespace TP_ComidaRapida
         {
             if (excepto != txt_Comida.Text)
             {
-                object comidaRepetida = bd.Select("nombre", "Comida", $"nombre='{txt_Comida.Text}'");
+                object comidaRepetida = bd.Select("nombre", "Comida", $"nombre='{txt_Comida.Text}' AND descartado=0");
                 if (comidaRepetida != null) //Si la consulta NO da NULL, encontró un usuario repetido.
                 {
                     MessageBox.Show("El platillo ya fue registrado.");
@@ -62,7 +62,7 @@ namespace TP_ComidaRapida
             if (!TextoEnBlanco() && !Repetidos(comidaTruncada))
             {
                 string plato = DarFormato();
-                bd.InsertInto("Comida", "nombre,precio", $"'{plato}','{txt_Precio.Text}'");
+                bd.InsertInto("Comida", "nombre,precio,descartado", $"'{plato}','{txt_Precio.Text}','0'");
                 MessageBox.Show("Datos creados con éxito.");
                 this.Hide();
             }

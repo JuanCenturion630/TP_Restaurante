@@ -14,17 +14,16 @@ namespace TP_ComidaRapida
 
         /* Uso de lenguaje de marcado XML para escribir mensajes orientativos sobre los métodos siguientes. */
         /// <summary>
-        /// INTO IGNORE INTO tabla(columna1,columna2,columna3...) VALUES (valor1,valor2,valor3...)
+        /// INSERT INTO tabla(columna1,columna2,columna3...) VALUES (valor1,valor2,valor3...)
         /// </summary>
         public void InsertInto(string tabla, string columna, string valor)
         {
             try
             {
                 conexion.Open(); //Abre conexión con el servidor.
-                //El IGNORE es para evitar las repeticiones en la clase única (usuario).
-                //INSERT IGNORE INTO Usuario (administrador, nombre, apellido, usuario...) 
+                //INSERT INTO Usuario (administrador, nombre, apellido, usuario...) 
                 //       VALUES (1,'Juan','Centurión','jcenturion630'...)
-                string consulta = $"INSERT IGNORE INTO {tabla} ({columna}) VALUES ({valor})";
+                string consulta = $"INSERT INTO {tabla} ({columna}) VALUES ({valor})";
                 MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
                 comando.ExecuteNonQuery(); //Ejecuta la consulta.
                 conexion.Close(); //Cierra conexión con el servidor.
@@ -91,6 +90,51 @@ namespace TP_ComidaRapida
                             /* La instancia "ctrl" cambia de la clase Control a la clase ComboBox para acceder 
                              * a sus métodos característicos. */
                             ComboBox cmb = (ComboBox)ctrl; 
+                            //De la fila actual, obtiene el valor de una columna concreta...
+                            string texto = datos.GetString("usuario");
+                            cmb.Items.Add(texto);
+                        }
+                    }
+                }
+
+                conexion.Close(); //Cierra conexión con el servidor.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el ComboBox: " + ex.Message);
+            }
+        }
+
+        public void RellenarControl(Control ctrl, string columna, string tabla, string where)
+        {
+            try
+            {
+                conexion.Open(); //Abre conexión con el servidor.
+                string consulta = $"SELECT {columna} FROM {tabla}";
+                if (!string.IsNullOrEmpty(where)) //Si la variable "where" no es un espacio en blanco.
+                    consulta += $" WHERE {where}";
+                MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
+                MySqlDataReader datos = comando.ExecuteReader(); //Trae datos de la tabla a la aplicación.
+
+                if (ctrl is DataGridView)
+                {
+                    /* La instancia "ctrl" cambia de la clase Control a la clase ComboBox para acceder 
+                     * a sus métodos característicos. */
+                    DataGridView dgv = (DataGridView)ctrl;
+                    DataTable tablaVirtual = new DataTable(); //Crea una tabla virtual para darle formato al objeto "datos".
+                    tablaVirtual.Load(datos); //Carga los datos en la tabla virtual.
+                    dgv.DataSource = tablaVirtual; //Rellena el DataGridView con el DataTable.
+                }
+
+                if (datos.HasRows) //Verifica si la tabla tiene filas en primer lugar.
+                {
+                    while (datos.Read()) //Mientras la tabla encuentre una nueva fila, recorrerla.
+                    {
+                        if (ctrl is ComboBox)
+                        {
+                            /* La instancia "ctrl" cambia de la clase Control a la clase ComboBox para acceder 
+                             * a sus métodos característicos. */
+                            ComboBox cmb = (ComboBox)ctrl;
                             //De la fila actual, obtiene el valor de una columna concreta...
                             string texto = datos.GetString("usuario");
                             cmb.Items.Add(texto);

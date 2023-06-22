@@ -130,11 +130,12 @@ namespace TP_ComidaRapida
             #region Ticket en base de datos:
             
             ConexionSQL bd = new ConexionSQL();
-            DateTime fechaTicket = DateTime.Now;
+            //DateTime.Now devuelve "26/06/2023" que no sirve para la base de datos, así que se voltea para insertar en servidor.
+            string fechaTicket = DateTime.Now.ToString("yyyy/MM/dd hh:MM:ss");
             
             //Inserta el cuerpo del ticket y la forma de pago en la base de datos.
             bd.InsertInto("CuerpoTicket", "fechaEmision,total,CUIT_Empresa", 
-                $"'{fechaTicket}','{totalTicket}','20-42429088-1'"); //BUG: NO INSERTA HORA EN BASE DE DATOS.
+                $"'{fechaTicket}','{totalTicket}','20-42429088-1'");
             bd.InsertInto("DetallesFormaPago", "idFormaPago,monto", $"1,'{totalTicket}'"); //SIEMPRE EFECTIVO. DESCARTADO EL RESTO.
 
             //Inicializa variables para insertar detalles de ticket en la base de datos.
@@ -171,7 +172,7 @@ namespace TP_ComidaRapida
                     sw.WriteLine("AV. ZAVALETA 204, PARQUE PATRICIOS, CAP. FED.");
                     sw.WriteLine("Nº TICKET: " + idCuerpoTicket);
                     sw.WriteLine("Emisor: " + bd.Select("usuario", "Usuario", $"id='{idUsuario}'"));
-                    sw.WriteLine($"{fechaTicket.ToString("d/M/yy - HH:mm")}\n");
+                    sw.WriteLine($"{fechaTicket}\n");
                     sw.WriteLine($"TOTAL: $ {totalTicket.ToString()}");
                     sw.WriteLine("FORMA DE PAGO: EFECTIVO.");
                     sw.WriteLine($"SUBTOTAL: $ {totalTicket.ToString()}\n");

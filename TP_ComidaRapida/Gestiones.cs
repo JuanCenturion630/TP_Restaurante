@@ -170,7 +170,6 @@ namespace TP_ComidaRapida
                     else
                     {
                         sePresionoEliminar = true;
-                        MessageBox.Show(dgv_Tablas.SelectedCells[0].RowIndex.ToString());
                         if (MessageBox.Show("¿Desea borrar la fila?", "Aviso",
                                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
@@ -180,15 +179,14 @@ namespace TP_ComidaRapida
                             {
                                 case 0:
                                     //Obtiene el valor de la celda 3 de la fila X, es decir, la columna "usuario" de la tabla SQL.
-                                    MessageBox.Show(dgv_Tablas.Rows[i].Cells[3].Value.ToString());
                                     string usuario = dgv_Tablas.Rows[i].Cells[3].Value.ToString();
-                                    bd.Delete("Usuario", $"usuario='{usuario}'");
+                                    bd.Update("Usuario", "despedido", "1", $"usuario='{usuario}'");
                                     RefrescarDGV(dgv_Tablas, "usuario");
                                     break;
                                 case 1:
                                     //Obtiene el valor de la celda 0 de la fila X, es decir, la columna "comida" de la tabla SQL.
                                     string comida = dgv_Tablas.Rows[i].Cells[0].Value.ToString();
-                                    bd.Delete("Comida", $"nombre='{comida}'");
+                                    bd.Update("Comida", "descartado", "1", $"nombre='{comida}'");
                                     RefrescarDGV(dgv_Tablas, "comida");
                                     break;
                             }
@@ -246,15 +244,22 @@ namespace TP_ComidaRapida
                     case 0:
                         btn_Imprimir.Enabled = false;
                         RefrescarDGV(dgv_Tablas, "usuario");
+                        this.Text = "Gestionar Usuarios";
                         break;
                     case 1:
                         btn_Imprimir.Enabled = false;
                         RefrescarDGV(dgv_Tablas, "comida");
+                        this.Text = "Gestionar Comida";
                         break;
                     case 2:
                         btn_Imprimir.Enabled = true;
                         toolTip_infoControles.SetToolTip(btn_Imprimir, "Imprimir ticket.");
                         RefrescarDGV(dgv_Tablas, "ticket");
+                        this.Text = "Gestionar Tickets";
+                        break;
+                    case 3:
+                        RefrescarDGV(dgv_Tablas, "sesion");
+                        this.Text = "Gestionar Sesiones";
                         break;
                 }
             }
@@ -269,13 +274,34 @@ namespace TP_ComidaRapida
             switch (opcion)
             {
                 case "usuario":
-                    bd.RellenarControl(dgv, "administrador AS Admin,nombre AS Nombre,apellido AS Apellido,usuario AS Usuario,pass AS Password,fechaNacimiento AS Nacimiento,edad AS Edad,horaIngreso AS Ingreso,horaSalida AS Egreso", "Usuario");
+                    bd.RellenarControl(dgv, 
+                        "administrador AS Admin,nombre AS Nombre,apellido AS Apellido,usuario AS Usuario,pass AS Password,fechaNacimiento AS Nacimiento,edad AS Edad,horaIngreso AS Ingreso,horaSalida AS Egreso", 
+                        "Usuario", 
+                        "despedido=0 OR despedido IS NULL");
                     break;
                 case "comida":
-                    bd.RellenarControl(dgv, "nombre AS Comida,precio AS Precio", "Comida");
+                    bd.RellenarControl(dgv, 
+                        "nombre AS Comida,precio AS Precio", 
+                        "Comida", 
+                        "descartado=0 OR descartado IS NULL");
                     break;
                 case "ticket":
-                    bd.RellenarControl(dgv, "*", "DetallesTicket"); //Usar JOINS.
+                    bd.RellenarControl(dgv, 
+                        "*", 
+                        "DetallesTicket");
+                    /*bd.RellenarControl(dgv, 
+                        "Empresa.nombre AS Empresa, Empresa.CUIT AS CUIT, Empresa.ingBruto AS IngBruto, Empresa.direccion AS Direccion, CuerpoTicket.id AS Nro, Usuario.usuario AS Emisor, CuerpoTicket.fechaEmision AS Emision, CuerpoTicket.total AS Total, FormaPago.tipo AS Forma_Pago, DetallesFormaPago.monto AS Subtotal, Comida.nombre AS Comida, Comida.precio AS Precio_Unitario, DetallesTicket.cant AS Cantidad",
+                        "DetallesTicket JOIN Usuario ON Usuario.id = DetallesTicket.idUsuario JOIN DetallesFormaPago ON DetallesFormaPago.id = DetallesTicket.idDetallesFormaPago JOIN FormaPago ON FormaPago.id = 1 JOIN Comida ON Comida.id = DetallesTicket.idComida JOIN CuerpoTicket ON CuerpoTicket.id = DetallesTicket.idCuerpoTicket JOIN Empresa ON Empresa.CUIT = CuerpoTicket.CUIT_Empresa");
+                        */
+                    break;
+                case "sesion":
+                    bd.RellenarControl(dgv, 
+                        "*", 
+                        "Sesion");
+                    /*bd.RellenarControl(dgv, 
+                        "Usuario.usuario AS Usuario, Sesion.ingresoSesion AS Ingreso, Sesion.salidaSesion AS Salida", 
+                        "Usuario JOIN Sesion ON Usuario.id = Sesion.idUsuario");
+                        */
                     break;
             }
         }

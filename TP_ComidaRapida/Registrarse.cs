@@ -63,8 +63,9 @@ namespace TP_ComidaRapida
         /// <returns>No devuelve nada.</returns>
         protected void ConsultaRepetitiva(int admin, double edad, string ingreso, string egreso)
         {
-            bd.InsertInto("Usuario", "administrador,nombre,apellido,usuario,pass,fechaNacimiento,edad,horaIngreso,horaSalida",
-            $"{admin},'{nombre}','{apellido}','{usuario}','{txt_Password.Text}','{fechaVolteada}',{edad},'{ingreso}','{egreso}'");
+            bd.InsertInto("Usuario", 
+            "administrador,nombre,apellido,usuario,pass,fechaNacimiento,edad,horaIngreso,horaSalida,despedido",
+            $"{admin},'{nombre}','{apellido}','{usuario}','{txt_Password.Text}','{fechaVolteada}',{edad},'{ingreso}','{egreso}','0'");
         }
 
         /// <summary>
@@ -88,7 +89,7 @@ namespace TP_ComidaRapida
         /// </summary>
         public bool Repetidos()
         {
-            usuarioRepetido = bd.Select("usuario", "Usuario", $"usuario='{txt_Usuario.Text}'");
+            usuarioRepetido = bd.Select("usuario", "Usuario", $"usuario='{txt_Usuario.Text}' AND despedido=0");
             if (usuarioRepetido != null) //Si la consulta NO da NULL, encontró un usuario repetido.
             {
                 MessageBox.Show("El nombre de usuario ya esta en uso.");

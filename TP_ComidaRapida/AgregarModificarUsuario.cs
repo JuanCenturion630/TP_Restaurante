@@ -25,7 +25,7 @@ namespace TP_ComidaRapida
         {
             if (excepto != txt_Usuario.Text)
             {
-                usuarioRepetido = bd.Select("usuario", "Usuario", $"usuario='{txt_Usuario.Text}'");
+                usuarioRepetido = bd.Select("usuario", "Usuario", $"usuario='{txt_Usuario.Text}' AND despedido=0");
                 if (usuarioRepetido != null) //Si la consulta NO da NULL, encontró un usuario repetido.
                 {
                     MessageBox.Show("El nombre de usuario ya esta en uso.");
