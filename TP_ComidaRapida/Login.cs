@@ -24,7 +24,8 @@ namespace TP_ComidaRapida
             //bd.InsertInto("Usuario", "administrador,nombre,apellido,usuario,pass,fechaNacimiento,edad,horaIngreso,horaSalida", "1,'Diego','Hidalgo','dhidalgo23','11111111','2000-03-06',23,'08:00:00','16:00:00'");
         }
 
-        string user, password;
+        public static string usuarioActual;
+        string password;
         public static bool admin;
 
         private void btn_Ingresar_Click(object sender, EventArgs e)
@@ -33,7 +34,7 @@ namespace TP_ComidaRapida
             //Se realizan SELECT usando como WHERE a los Controles del Form (usando parámetros dinámicos).
 
             //SELECT usuario FROM Usuario WHERE usuario='combo_User.Text';
-            user = Convert.ToString(bd.Select("usuario", "Usuario", $"usuario='{combo_User.Text}'"));
+            usuarioActual = Convert.ToString(bd.Select("usuario", "Usuario", $"usuario='{combo_User.Text}'"));
             //SELECT pass FROM Usuario WHERE pass='txt_passwordUser.Text' AND usuario='combo_User.Text';
             password = Convert.ToString(bd.Select("pass", "Usuario", $"pass='{txt_passwordUser.Text}' AND usuario='{combo_User.Text}'"));
             //SELECT administrador FROM Usuario WHERE usuario='combo_User.Text';
@@ -46,7 +47,7 @@ namespace TP_ComidaRapida
                 return; //En el evento Click el return vacío detiene el código, lo posterior no se ejecuta.
             }
 
-            if (combo_User.Text == user && txt_passwordUser.Text == password)
+            if (combo_User.Text == usuarioActual && txt_passwordUser.Text == password)
             {
                 if (admin == true)
                 {
