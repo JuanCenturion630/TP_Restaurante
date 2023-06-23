@@ -18,21 +18,15 @@ namespace TP_ComidaRapida
         {
             InitializeComponent();
             ConexionSQL bd = new ConexionSQL();
-            bd.RellenarControl(combo_User, "usuario", "Usuario", "despedido=0 OR despedido IS NULL");
+            bd.RellenarControl(combo_User, "usuario", "Usuario", "despedido=0");
             ModificarControles mc = new ModificarControles();
             mc.ActualizarControles(this);
-
-            //DateTime.Now escribe en formato "22/6/2023" que no sirve para la base de datos. Es necesario voltearla.
-            //string fechaVolteada = DateTime.Now.ToString("yyyy/MM/dd hh:MM:ss");
-
-            //Registro de sesión.
-            //int idUsuario = Convert.ToInt32(bd.Select("id", "Usuario", $"id='{combo_User.Text}'"));
-            //bd.InsertInto("Sesion", "idUsuario,ingresoSesion,salidaSesion", $"'{idUsuario}','{fechaVolteada}','0000-00-00 00:00:00'");
         }
 
         public static string usuarioActual;
         string password;
         public static bool admin;
+        public static int idUsuario;
 
         private void btn_Ingresar_Click(object sender, EventArgs e)
         {
@@ -55,11 +49,15 @@ namespace TP_ComidaRapida
 
             if (combo_User.Text == usuarioActual && txt_passwordUser.Text == password)
             {
+                idUsuario = Convert.ToInt32(bd.Select("id", "Usuario", $"usuario='{usuarioActual}'"));
+                string fechaInvertida = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                bd.InsertInto("Sesion", "idUsuario,ingresoSesion,salidaSesion", $"'{idUsuario}','{fechaInvertida}','2000/01/01 00:00:00'");
+
                 if (admin == true)
                 {
                     this.Hide();
-                    Gestiones gu = new Gestiones();
-                    gu.Show();
+                    Gestiones gestiones = new Gestiones();
+                    gestiones.Show();
                 }
                 else
                 {

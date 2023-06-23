@@ -1,1 +1,0 @@
-1. (OPCIONAL) Botón Imprimir Ticket en el Form "Gestiones".

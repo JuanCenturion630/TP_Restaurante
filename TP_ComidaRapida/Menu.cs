@@ -131,16 +131,14 @@ namespace TP_ComidaRapida
             
             ConexionSQL bd = new ConexionSQL();
             //DateTime.Now devuelve "26/06/2023" que no sirve para la base de datos, así que se voltea para insertar en servidor.
-            string fechaTicket = DateTime.Now.ToString("yyyy/MM/dd hh:MM:ss");
-            
+            string fechaTicket = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
             //Inserta el cuerpo del ticket y la forma de pago en la base de datos.
-            bd.InsertInto("CuerpoTicket", "fechaEmision,total,CUIT_Empresa", 
-                $"'{fechaTicket}','{totalTicket}','20-42429088-1'");
+            bd.InsertInto("CuerpoTicket", "fechaEmision,total,CUIT_Empresa,idUsuario",
+                $"'{fechaTicket}','{totalTicket}','20-42429088-1','{Login.idUsuario}'");
             bd.InsertInto("DetallesFormaPago", "idFormaPago,monto", $"1,'{totalTicket}'"); //SIEMPRE EFECTIVO. DESCARTADO EL RESTO.
 
             //Inicializa variables para insertar detalles de ticket en la base de datos.
-            int idUsuario = Convert.ToInt32(bd.Select("id", "Usuario", $"usuario='{Login.usuarioActual}'"));
-
             //Usando subconsultas, obtengo siempre el último ID de CuerpoTicket (el cuerpo de ticket más reciente).
             int idCuerpoTicket = Convert.ToInt32(bd.Select("id", "CuerpoTicket", "id=(SELECT MAX(id) FROM CuerpoTicket)"));
             int idDetFormaPago = Convert.ToInt32(bd.Select("id", "DetallesFormaPago", "id=(SELECT MAX(id) FROM DetallesFormaPago)"));
@@ -171,7 +169,7 @@ namespace TP_ComidaRapida
                     sw.WriteLine("ING. BR.: 1007936-1.");
                     sw.WriteLine("AV. ZAVALETA 204, PARQUE PATRICIOS, CAP. FED.");
                     sw.WriteLine("Nº TICKET: " + idCuerpoTicket);
-                    sw.WriteLine("Emisor: " + bd.Select("usuario", "Usuario", $"id='{idUsuario}'"));
+                    sw.WriteLine("Emisor: " + Login.usuarioActual);
                     sw.WriteLine($"{fechaTicket}\n");
                     sw.WriteLine($"TOTAL: $ {totalTicket.ToString()}");
                     sw.WriteLine("FORMA DE PAGO: EFECTIVO.");
@@ -185,8 +183,8 @@ namespace TP_ComidaRapida
                             //Escribe en el documento txt.
                             sw.WriteLine($"x{cantidad[i]} {comida[i]} - $ {(precio[i] * cantidad[i])}.");
                             //Escribe en la base de datos.
-                            bd.InsertInto("DetallesTicket", "idUsuario,idCuerpoTicket,idDetallesFormaPago,idComida,cant",
-                                $"'{idUsuario}','{idCuerpoTicket}','{idDetFormaPago}','{(i + 1)}','{cantidad[i]}'");
+                            bd.InsertInto("DetallesTicket", "idCuerpoTicket,idDetallesFormaPago,idComida,cant",
+                                $"'{idCuerpoTicket}','{idDetFormaPago}','{(i + 1)}','{cantidad[i]}'");
                         }
                     }
 

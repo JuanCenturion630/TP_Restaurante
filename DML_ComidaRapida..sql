@@ -6,6 +6,10 @@ VALUES (1,"Juan","Centurión","jcenturion630","12345678","2000-03-06",23,"08:00:
 		(0,"Diego","Hidalgo","dhidalgo999","12345678","2001/01/01",22,"16:00:00","23:59:59",0);
 SELECT * FROM Usuario;
 
+INSERT INTO Sesion(idUsuario,ingresoSesion,salidaSesion)
+VALUES (1,'2023-06-19 12:01:58','2023-06-19 12:03:34');
+SELECT * FROM Sesion;
+
 INSERT INTO Empresa(nombre,CUIT,ingBruto,direccion)
 VALUES ("Grupo X S.R.L","20-42429088-1","1017936-4","AV. ZAVALETA 204, PARQUE PATRICIOS, CAP. FED");
 SELECT * FROM Empresa;
@@ -23,34 +27,54 @@ SELECT * FROM Comida;
 UPDATE Comida SET descartado=0 WHERE descartado=1;
 ALTER TABLE Comida AUTO_INCREMENT = 1; /* REINICIA EL ID. */
 
-SELECT * FROM DetallesFormaPago;
-SELECT * FROM CuerpoTicket;
-SELECT * FROM DetallesTicket;
-
-/* JOIN para unificar todas las tablas en un ticket. */
-SELECT
-	Empresa.nombre AS Empresa, Empresa.CUIT AS CUIT, Empresa.ingBruto AS IngBruto, Empresa.direccion AS Direccion,
-	CuerpoTicket.id AS Nro,
-	Usuario.usuario AS Emisor,
-	CuerpoTicket.fechaEmision AS Emision,
-	CuerpoTicket.total AS Total,
-	FormaPago.tipo AS Forma_Pago, 
-	DetallesFormaPago.monto AS Subtotal,
-	Comida.nombre AS Comida, Comida.precio AS Precio_Unitario,
-	DetallesTicket.cant AS Cantidad
-FROM DetallesTicket
-		JOIN Usuario ON Usuario.id = DetallesTicket.idUsuario
+/* STORE PROCEDURE con JOINs para unificar todas las tablas en un ticket. */
+DELIMITER //
+CREATE PROCEDURE Crear_Ticket()
+BEGIN
+    SELECT
+		Empresa.nombre AS Empresa, Empresa.CUIT AS CUIT, Empresa.ingBruto AS IngBruto, Empresa.direccion AS Direccion,
+		CuerpoTicket.id AS Nro,
+		Usuario.usuario AS Emisor,
+		CuerpoTicket.fechaEmision AS Emision, CuerpoTicket.total AS Total,
+		FormaPago.tipo AS Forma_Pago, 
+		DetallesFormaPago.monto AS Subtotal,
+		Comida.nombre AS Comida, Comida.precio AS Precio_Unitario,
+		DetallesTicket.cant AS Cantidad
+	FROM DetallesTicket
 		JOIN DetallesFormaPago ON DetallesFormaPago.id = DetallesTicket.idDetallesFormaPago
-		JOIN FormaPago ON FormaPago.id = 1 /* Solo "joinea" con la Forma de Pago 1 (Efectivo) porque no temporalmente no hay otras. */
+		JOIN FormaPago ON FormaPago.id = 1 /* Solo "joinea" con la Forma de Pago 1 (Efectivo) porque temporalmente no hay otras. */
 		JOIN Comida ON Comida.id = DetallesTicket.idComida
 		JOIN CuerpoTicket ON CuerpoTicket.id = DetallesTicket.idCuerpoTicket
-		JOIN Empresa ON Empresa.CUIT = CuerpoTicket.CUIT_Empresa;
+		JOIN Empresa ON Empresa.CUIT = CuerpoTicket.CUIT_Empresa
+		JOIN Usuario ON Usuario.id = CuerpoTicket.idUsuario;
+END //
+DELIMITER ;
+CALL Crear_Ticket();
 
-/* JOIN para unificar los datos de usuario y sesión */
-SELECT
-	Usuario.usuario AS Usuario,
-	Sesion.ingresoSesion AS Ultima_Ingreso, Sesion.salidaSesion AS Ultima_Salida
-FROM Usuario 
-		JOIN Sesion ON Usuario.id = Sesion.idUsuario;
-        
-SELECT * FROM Sesion;
+/* STORE PROCEDURE con JOINs para unificar los datos de usuario y sesión */
+DELIMITER //
+CREATE PROCEDURE Mostrar_Sesiones()
+BEGIN
+    SELECT
+		Usuario.usuario AS Usuario,
+		Sesion.ingresoSesion AS InicioSesion, Sesion.salidaSesion AS FinSesion
+	FROM Usuario 
+		JOIN Sesion ON Usuario.id = Sesion.idUsuario
+	WHERE Sesion.salidaSesion != '2000/01/01 00:00:00';
+END //
+DELIMITER ;
+CALL Mostrar_Sesiones();
+
+/* STORE PROCEDURE con SUBCONSULTA para actualizar la celda de salidaSesion */
+DELIMITER //
+CREATE PROCEDURE Registrar_Cierre_Sesion(horaSalida DATETIME, usuarioLogeado TINYINT UNSIGNED)
+BEGIN
+    UPDATE Sesion 
+	SET salidaSesion=horaSalida 
+	WHERE id = (
+		SELECT MAX(id) 
+		FROM Sesion 
+		WHERE salidaSesion='2000/01/01 00:00:00' AND idUsuario=usuarioLogeado);
+END //
+DELIMITER ;
+CALL Registrar_Cierre_Sesion('2050/01/10 00:05:00',2);

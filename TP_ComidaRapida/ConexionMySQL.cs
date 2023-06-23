@@ -61,41 +61,20 @@ namespace TP_ComidaRapida
         /// <summary>
         /// Realiza un SELECT columna FROM tabla para rellenar un Control.
         /// </summary>
-        /// <param name="ctrl">El control utilizado. Ej. DataGridView, ComboBox, etc...</param>
-        public void RellenarControl(Control ctrl, string columna, string tabla)
+        /// <param name="dgv">El control utilizado. Ej. DataGridView, ComboBox, etc...</param>
+        /// <param name="store_procedure">El nombre del STORE PROCEDURE debe ir acompañado de paréntesis. Ej.: Crear_Ticket()</param>
+        public void RellenarControl(DataGridView dgv, string store_procedure)
         {
             try
             {
                 conexion.Open(); //Abre conexión con el servidor.
-                string consulta = $"SELECT {columna} FROM {tabla}";
+                string consulta = $"CALL {store_procedure}";
                 MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
                 MySqlDataReader datos = comando.ExecuteReader(); //Trae datos de la tabla a la aplicación.
 
-                if (ctrl is DataGridView)
-                {
-                    /* La instancia "ctrl" cambia de la clase Control a la clase ComboBox para acceder 
-                     * a sus métodos característicos. */
-                    DataGridView dgv = (DataGridView)ctrl;
-                    DataTable tablaVirtual = new DataTable(); //Crea una tabla virtual para darle formato al objeto "datos".
-                    tablaVirtual.Load(datos); //Carga los datos en la tabla virtual.
-                    dgv.DataSource = tablaVirtual; //Rellena el DataGridView con el DataTable.
-                }
-
-                if (datos.HasRows) //Verifica si la tabla tiene filas en primer lugar.
-                {
-                    while (datos.Read()) //Mientras la tabla encuentre una nueva fila, recorrerla.
-                    {
-                        if (ctrl is ComboBox)
-                        {
-                            /* La instancia "ctrl" cambia de la clase Control a la clase ComboBox para acceder 
-                             * a sus métodos característicos. */
-                            ComboBox cmb = (ComboBox)ctrl; 
-                            //De la fila actual, obtiene el valor de una columna concreta...
-                            string texto = datos.GetString("usuario");
-                            cmb.Items.Add(texto);
-                        }
-                    }
-                }
+                DataTable tablaVirtual = new DataTable(); //Crea una tabla virtual para darle formato al objeto "datos".
+                tablaVirtual.Load(datos); //Carga los datos en la tabla virtual.
+                dgv.DataSource = tablaVirtual; //Rellena el DataGridView con el DataTable.
 
                 conexion.Close(); //Cierra conexión con el servidor.
             }
@@ -105,6 +84,10 @@ namespace TP_ComidaRapida
             }
         }
 
+        /// <summary>
+        /// Realiza un SELECT columna FROM tabla para rellenar un Control.
+        /// </summary>
+        /// <param name="ctrl">El control utilizado. Ej. DataGridView, ComboBox, etc...</param>
         public void RellenarControl(Control ctrl, string columna, string tabla, string where)
         {
             try

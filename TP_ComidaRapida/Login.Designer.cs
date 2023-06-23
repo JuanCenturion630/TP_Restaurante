@@ -68,7 +68,7 @@
             this.txt_passwordUser.Location = new System.Drawing.Point(89, 63);
             this.txt_passwordUser.Name = "txt_passwordUser";
             this.txt_passwordUser.Size = new System.Drawing.Size(122, 20);
-            this.txt_passwordUser.TabIndex = 1;
+            this.txt_passwordUser.TabIndex = 0;
             this.txt_passwordUser.UseSystemPasswordChar = true;
             // 
             // label1
@@ -113,7 +113,7 @@
             this.combo_User.Location = new System.Drawing.Point(89, 21);
             this.combo_User.Name = "combo_User";
             this.combo_User.Size = new System.Drawing.Size(149, 21);
-            this.combo_User.TabIndex = 0;
+            this.combo_User.TabIndex = 1;
             // 
             // btn_MostrarPassword
             // 

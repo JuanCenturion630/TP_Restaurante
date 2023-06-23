@@ -105,7 +105,7 @@ namespace TP_ComidaRapida
                             amu.btn_Registrarse.Visible = false;
                             amu.btn_InicioSesion.Visible = false;
                             amu.btn_Agregar.Visible = false;
-                            amu.AcceptButton = amu.btn_Modificar;
+                            amu.AcceptButton = amu.btn_Modificar;  //Con solo presionar ENTER se activa el botón.
                             amu.Text = "Modificar Usuario";
                             amu.YaEsAdmin = true;
 
@@ -219,12 +219,16 @@ namespace TP_ComidaRapida
             login.Show();
         }
 
-        private void GestionarUsuarios_FormClosing(object sender, FormClosingEventArgs e)
+        private void Gestiones_FormClosing(object sender, FormClosingEventArgs e)
         {
             //El evento se produce al intentar cerrar el formulario.
             if (MessageBox.Show("¿Desea cerrar la aplicación?", "Aviso",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                string fechaInvertida = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                MessageBox.Show(fechaInvertida);
+                bd.Update($"CALL Registrar_Cierre_Sesion('{fechaInvertida}','{Login.idUsuario}')");
+
                 /* e.Cancel = false no cancela el evento, o sea, el formulario sí se cierra, 
                  * pero el mensaje de salida se repite al mezclarse con el mensaje de salida 
                  * del formulario Login, para evitarlo usar ExitThread() para matar todos los 
@@ -274,34 +278,22 @@ namespace TP_ComidaRapida
             switch (opcion)
             {
                 case "usuario":
-                    bd.RellenarControl(dgv, 
-                        "administrador AS Admin,nombre AS Nombre,apellido AS Apellido,usuario AS Usuario,pass AS Password,fechaNacimiento AS Nacimiento,edad AS Edad,horaIngreso AS Ingreso,horaSalida AS Egreso", 
-                        "Usuario", 
-                        "despedido=0 OR despedido IS NULL");
+                    bd.RellenarControl(dgv,
+                        "administrador AS Admin,nombre AS Nombre,apellido AS Apellido,usuario AS Usuario,pass AS Password,fechaNacimiento AS Nacimiento,edad AS Edad,horaIngreso AS Ingreso,horaSalida AS Egreso",
+                        "Usuario",
+                        "despedido=0");
                     break;
                 case "comida":
                     bd.RellenarControl(dgv, 
                         "nombre AS Comida,precio AS Precio", 
                         "Comida", 
-                        "descartado=0 OR descartado IS NULL");
+                        "descartado=0");
                     break;
                 case "ticket":
-                    bd.RellenarControl(dgv, 
-                        "*", 
-                        "DetallesTicket");
-                    /*bd.RellenarControl(dgv, 
-                        "Empresa.nombre AS Empresa, Empresa.CUIT AS CUIT, Empresa.ingBruto AS IngBruto, Empresa.direccion AS Direccion, CuerpoTicket.id AS Nro, Usuario.usuario AS Emisor, CuerpoTicket.fechaEmision AS Emision, CuerpoTicket.total AS Total, FormaPago.tipo AS Forma_Pago, DetallesFormaPago.monto AS Subtotal, Comida.nombre AS Comida, Comida.precio AS Precio_Unitario, DetallesTicket.cant AS Cantidad",
-                        "DetallesTicket JOIN Usuario ON Usuario.id = DetallesTicket.idUsuario JOIN DetallesFormaPago ON DetallesFormaPago.id = DetallesTicket.idDetallesFormaPago JOIN FormaPago ON FormaPago.id = 1 JOIN Comida ON Comida.id = DetallesTicket.idComida JOIN CuerpoTicket ON CuerpoTicket.id = DetallesTicket.idCuerpoTicket JOIN Empresa ON Empresa.CUIT = CuerpoTicket.CUIT_Empresa");
-                        */
+                    bd.RellenarControl(dgv, "Crear_Ticket()");
                     break;
                 case "sesion":
-                    bd.RellenarControl(dgv, 
-                        "*", 
-                        "Sesion");
-                    /*bd.RellenarControl(dgv, 
-                        "Usuario.usuario AS Usuario, Sesion.ingresoSesion AS Ingreso, Sesion.salidaSesion AS Salida", 
-                        "Usuario JOIN Sesion ON Usuario.id = Sesion.idUsuario");
-                        */
+                    bd.RellenarControl(dgv, "Mostrar_Sesiones()");
                     break;
             }
         }

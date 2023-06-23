@@ -172,7 +172,7 @@
             this.Name = "Gestiones";
             this.Text = "Gestionar Usuarios";
             this.Activated += new System.EventHandler(this.Gestiones_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GestionarUsuarios_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Gestiones_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Tablas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
