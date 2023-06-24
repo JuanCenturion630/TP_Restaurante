@@ -82,7 +82,7 @@
             this.txt_Buscador.Name = "txt_Buscador";
             this.txt_Buscador.Size = new System.Drawing.Size(168, 20);
             this.txt_Buscador.TabIndex = 2;
-            this.toolTip_infoControles.SetToolTip(this.txt_Buscador, "Barra de búsqueda.");
+            this.toolTip_infoControles.SetToolTip(this.txt_Buscador, "Barra de búsqueda. Distingue mayúsculas de minúsculas.");
             // 
             // btn_Menu
             // 
@@ -135,13 +135,13 @@
             // 
             // btn_Buscar
             // 
-            this.btn_Buscar.BackgroundImage = global::TP_ComidaRapida.Properties.Resources.Lupa_;
             this.btn_Buscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btn_Buscar.Location = new System.Drawing.Point(445, 10);
             this.btn_Buscar.Name = "btn_Buscar";
             this.btn_Buscar.Size = new System.Drawing.Size(41, 21);
             this.btn_Buscar.TabIndex = 3;
-            this.toolTip_infoControles.SetToolTip(this.btn_Buscar, "Busca un elemento.");
+            this.btn_Buscar.Text = "Q";
+            this.toolTip_infoControles.SetToolTip(this.btn_Buscar, "Busca un elemento. Distingue mayúsculas de minúsculas.");
             this.btn_Buscar.UseVisualStyleBackColor = true;
             this.btn_Buscar.Click += new System.EventHandler(this.btn_Buscar_Click);
             // 

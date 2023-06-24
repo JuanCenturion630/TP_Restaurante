@@ -80,6 +80,9 @@ namespace TP_ComidaRapida
                         case 2:
                             MessageBox.Show("No puede agregar tickets.");
                             break;
+                        case 3:
+                            MessageBox.Show("No puede agregar sesiones.");
+                            break;
                     }
                 }
             }
@@ -142,7 +145,10 @@ namespace TP_ComidaRapida
                             amc.ShowDialog();
                             break;
                         case 2:
-                            MessageBox.Show("No puede modificar tickets.");
+                            MessageBox.Show("No puede modificar los tickets.");
+                            break;
+                        case 3:
+                            MessageBox.Show("No puede modificar el registro de sesiones.");
                             break;
                     }
                 }
@@ -165,8 +171,10 @@ namespace TP_ComidaRapida
                 }
                 else
                 {
-                    if (cmb_tablas.SelectedIndex == 2)
-                        MessageBox.Show("No se pueden borrar los tickets.");
+                    //Aunque el borrado lógico de Comida esta programado, no lo ejecutaremos porque la aplicación necesita 
+                    //obligatoriamente 12 comidas estáticas.
+                    if (cmb_tablas.SelectedIndex >= 1)
+                        MessageBox.Show("No se puede aplicar esta acción en este registro.");
                     else
                     {
                         sePresionoEliminar = true;
@@ -226,7 +234,6 @@ namespace TP_ComidaRapida
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 string fechaInvertida = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-                MessageBox.Show(fechaInvertida);
                 bd.Update($"CALL Registrar_Cierre_Sesion('{fechaInvertida}','{Login.idUsuario}')");
 
                 /* e.Cancel = false no cancela el evento, o sea, el formulario sí se cierra, 

@@ -6,10 +6,6 @@ VALUES (1,"Juan","Centurión","jcenturion630","12345678","2000-03-06",23,"08:00:
 		(0,"Diego","Hidalgo","dhidalgo999","12345678","2001/01/01",22,"16:00:00","23:59:59",0);
 SELECT * FROM Usuario;
 
-INSERT INTO Sesion(idUsuario,ingresoSesion,salidaSesion)
-VALUES (1,'2023-06-19 12:01:58','2023-06-19 12:03:34');
-SELECT * FROM Sesion;
-
 INSERT INTO Empresa(nombre,CUIT,ingBruto,direccion)
 VALUES ("Grupo X S.R.L","20-42429088-1","1017936-4","AV. ZAVALETA 204, PARQUE PATRICIOS, CAP. FED");
 SELECT * FROM Empresa;
@@ -77,4 +73,4 @@ BEGIN
 		WHERE salidaSesion='2000/01/01 00:00:00' AND idUsuario=usuarioLogeado);
 END //
 DELIMITER ;
-CALL Registrar_Cierre_Sesion('2050/01/10 00:05:00',2);
+CALL Registrar_Cierre_Sesion('2050/01/10 00:05:00',2); /* PRUEBO EL STORE PROCEDURE */

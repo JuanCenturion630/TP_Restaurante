@@ -20,6 +20,7 @@ namespace TP_ComidaRapida
             mc.ActualizarControles(this);
             RellenarVector();
             RellenarLabel();
+            //RellenarTextBox();
         }
 
         int i = 0;
@@ -27,6 +28,17 @@ namespace TP_ComidaRapida
         decimal[] precio = new decimal[12];
         string[] comida = new string[12];
         decimal totalVenta = 0, totalTicket = 0;
+
+        void RellenarTextBox()
+        {
+            foreach (GroupBox gbox in this.Controls.OfType<GroupBox>())
+            {
+                foreach (TextBox txt in gbox.Controls.OfType<TextBox>())
+                {
+                    txt.Text = "99";
+                }
+            } 
+        }
 
         void RellenarLabel()
         {
@@ -116,7 +128,7 @@ namespace TP_ComidaRapida
                 }
 
                 i = 0;
-                lbl_Venta.Text = "$ " + totalVenta.ToString();
+                lbl_Venta.Text = "$ " + totalVenta.ToString("N"); //Da formato de número. Ej.: 1.000.457 en vez de 1000457. 
                 totalVenta = 0;
             }
             catch (Exception ex)
@@ -148,7 +160,8 @@ namespace TP_ComidaRapida
 
             try
             {
-                string nomArchivo = "ticket_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "..txt";
+                //GUARDADO: Disco C:->Usuarios->Acceso Público
+                string nomArchivo = "GrupoX_ticket_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "..txt";
                 string rutaArchivo = "C:\\Users\\Public\\" + nomArchivo;
 
                 int version = 1; //Cuenta las versiones de un ticket con el mismo nombre.
@@ -156,7 +169,7 @@ namespace TP_ComidaRapida
                 while (File.Exists(rutaArchivo)) //Mientras ya exista el archivo en la ruta...
                 {
                     //Crea un versión distinta sin sobreescribir el archivo original.
-                    nomArchivo = "ticket_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + version + "..txt";
+                    nomArchivo = "GrupoX_ticket_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + version + "..txt";
                     rutaArchivo = "C:\\Users\\Public\\" + nomArchivo;
                     version++;
                 }
@@ -171,17 +184,29 @@ namespace TP_ComidaRapida
                     sw.WriteLine("Nº TICKET: " + idCuerpoTicket);
                     sw.WriteLine("Emisor: " + Login.usuarioActual);
                     sw.WriteLine($"{fechaTicket}\n");
-                    sw.WriteLine($"TOTAL: $ {totalTicket.ToString()}");
-                    sw.WriteLine("FORMA DE PAGO: EFECTIVO.");
-                    sw.WriteLine($"SUBTOTAL: $ {totalTicket.ToString()}\n");
+                    sw.WriteLine("TOTAL:".PadRight(10) + $"$ {totalTicket.ToString("N")}"); //"N" da formato de número. Ej.: 1.000.457 en vez de 1000457.
+                    sw.WriteLine($"SUBTOTAL: $ {totalTicket.ToString("N")}");
+                    sw.WriteLine("FORMA DE PAGO: EFECTIVO.\n");
                     sw.WriteLine("ARTÍCULOS:\n");
                     
                     for (int i = 0; i < 12; i++)
                     {
                         if (cantidad[i] != 0)
                         {
+                            string cant = " ";
+                            string pxc = (precio[i] * cantidad[i]).ToString("N");
+
+                            if (pxc.Length == 9) pxc = "".PadLeft(1) + (precio[i] * cantidad[i]).ToString("N");
+                            if (pxc.Length == 8) pxc = "".PadLeft(2) + (precio[i] * cantidad[i]).ToString("N");
+                            if (pxc.Length == 6) pxc = "".PadLeft(4) + (precio[i] * cantidad[i]).ToString("N");
+
+                            if (cantidad[i] < 10)
+                                cant = "0" + cantidad[i];
+                            else
+                                cant = cantidad[i].ToString();
+
                             //Escribe en el documento txt.
-                            sw.WriteLine($"x{cantidad[i]} {comida[i]} - $ {(precio[i] * cantidad[i])}.");
+                            sw.WriteLine($"x{cant} {comida[i]}".PadRight(24) + $"- $ {pxc}.");
                             //Escribe en la base de datos.
                             bd.InsertInto("DetallesTicket", "idCuerpoTicket,idDetallesFormaPago,idComida,cant",
                                 $"'{idCuerpoTicket}','{idDetFormaPago}','{(i + 1)}','{cantidad[i]}'");
@@ -224,5 +249,21 @@ namespace TP_ComidaRapida
                 login.Show();
             }
         }
+
+        #region Descartado (No convence la estética):
+
+        private void btn_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderColor = Color.White;
+        }
+
+        private void btn_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            btn.FlatStyle = FlatStyle.Popup;
+        }
+        #endregion
     }
 }

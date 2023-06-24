@@ -125,7 +125,7 @@
             this.txt_cantHambGrande.TabIndex = 5;
             this.txt_cantHambGrande.Text = "0";
             this.txt_cantHambGrande.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantHambGrande, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantHambGrande, "Cantidad no puede superar a 99.");
             this.txt_cantHambGrande.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // txt_cantHambMedia
@@ -136,7 +136,7 @@
             this.txt_cantHambMedia.TabIndex = 5;
             this.txt_cantHambMedia.Text = "0";
             this.txt_cantHambMedia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantHambMedia, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantHambMedia, "Cantidad no puede superar a 99.");
             this.txt_cantHambMedia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // txt_cantHambChica
@@ -147,7 +147,7 @@
             this.txt_cantHambChica.TabIndex = 5;
             this.txt_cantHambChica.Text = "0";
             this.txt_cantHambChica.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantHambChica, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantHambChica, "Cantidad no puede superar a 99.");
             this.txt_cantHambChica.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // label2
@@ -240,7 +240,7 @@
             this.txt_cantPizzaGrande.TabIndex = 5;
             this.txt_cantPizzaGrande.Text = "0";
             this.txt_cantPizzaGrande.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantPizzaGrande, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantPizzaGrande, "Cantidad no puede superar a 99.");
             this.txt_cantPizzaGrande.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // txt_cantPizzaMedia
@@ -251,7 +251,7 @@
             this.txt_cantPizzaMedia.TabIndex = 5;
             this.txt_cantPizzaMedia.Text = "0";
             this.txt_cantPizzaMedia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantPizzaMedia, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantPizzaMedia, "Cantidad no puede superar a 99.");
             this.txt_cantPizzaMedia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // txt_cantPizzaChica
@@ -262,7 +262,7 @@
             this.txt_cantPizzaChica.TabIndex = 5;
             this.txt_cantPizzaChica.Text = "0";
             this.txt_cantPizzaChica.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantPizzaChica, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantPizzaChica, "Cantidad no puede superar a 99.");
             this.txt_cantPizzaChica.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // label3
@@ -366,7 +366,7 @@
             this.txt_cantGaseosaGrande.TabIndex = 5;
             this.txt_cantGaseosaGrande.Text = "0";
             this.txt_cantGaseosaGrande.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantGaseosaGrande, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantGaseosaGrande, "Cantidad no puede superar a 99.");
             this.txt_cantGaseosaGrande.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // txt_cantGaseosaMedia
@@ -377,7 +377,7 @@
             this.txt_cantGaseosaMedia.TabIndex = 5;
             this.txt_cantGaseosaMedia.Text = "0";
             this.txt_cantGaseosaMedia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantGaseosaMedia, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantGaseosaMedia, "Cantidad no puede superar a 99.");
             this.txt_cantGaseosaMedia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // txt_cantGaseosaChica
@@ -388,7 +388,7 @@
             this.txt_cantGaseosaChica.TabIndex = 5;
             this.txt_cantGaseosaChica.Text = "0";
             this.txt_cantGaseosaChica.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantGaseosaChica, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantGaseosaChica, "Cantidad no puede superar a 99.");
             this.txt_cantGaseosaChica.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // label6
@@ -493,7 +493,7 @@
             this.txt_cantCarneGrande.TabIndex = 5;
             this.txt_cantCarneGrande.Text = "0";
             this.txt_cantCarneGrande.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantCarneGrande, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantCarneGrande, "Cantidad no puede superar a 99.");
             this.txt_cantCarneGrande.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // txt_cantCarneMedia
@@ -504,7 +504,7 @@
             this.txt_cantCarneMedia.TabIndex = 5;
             this.txt_cantCarneMedia.Text = "0";
             this.txt_cantCarneMedia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantCarneMedia, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantCarneMedia, "Cantidad no puede superar a 99.");
             this.txt_cantCarneMedia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // txt_cantCarneChica
@@ -515,7 +515,7 @@
             this.txt_cantCarneChica.TabIndex = 5;
             this.txt_cantCarneChica.Text = "0";
             this.txt_cantCarneChica.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.toolTip_infoControles.SetToolTip(this.txt_cantCarneChica, "Cantidad.");
+            this.toolTip_infoControles.SetToolTip(this.txt_cantCarneChica, "Cantidad no puede superar a 99.");
             this.txt_cantCarneChica.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_cant_KeyPress);
             // 
             // label9
