@@ -27,18 +27,19 @@ ALTER TABLE Comida AUTO_INCREMENT = 1; /* REINICIA EL ID. */
 DELIMITER //
 CREATE PROCEDURE Crear_Ticket()
 BEGIN
-    SELECT
+	SELECT
 		Empresa.nombre AS Empresa, Empresa.CUIT AS CUIT, Empresa.ingBruto AS IngBruto, Empresa.direccion AS Direccion,
 		CuerpoTicket.id AS Nro,
 		Usuario.usuario AS Emisor,
 		CuerpoTicket.fechaEmision AS Emision, CuerpoTicket.total AS Total,
 		FormaPago.tipo AS Forma_Pago, 
 		DetallesFormaPago.monto AS Subtotal,
-		Comida.nombre AS Comida, Comida.precio AS Precio_Unitario,
-		DetallesTicket.cant AS Cantidad
+		DetallesTicket.cant AS Cantidad,
+		Comida.precio AS Precio_Unitario, Comida.nombre AS Descripcion,
+		DetallesTicket.importe AS Importe
 	FROM DetallesTicket
 		JOIN DetallesFormaPago ON DetallesFormaPago.id = DetallesTicket.idDetallesFormaPago
-		JOIN FormaPago ON FormaPago.id = 1 /* Solo "joinea" con la Forma de Pago 1 (Efectivo) porque temporalmente no hay otras. */
+		JOIN FormaPago ON FormaPago.id = DetallesFormaPago.idFormaPago
 		JOIN Comida ON Comida.id = DetallesTicket.idComida
 		JOIN CuerpoTicket ON CuerpoTicket.id = DetallesTicket.idCuerpoTicket
 		JOIN Empresa ON Empresa.CUIT = CuerpoTicket.CUIT_Empresa
@@ -51,7 +52,7 @@ CALL Crear_Ticket();
 DELIMITER //
 CREATE PROCEDURE Mostrar_Sesiones()
 BEGIN
-    SELECT
+	SELECT
 		Usuario.usuario AS Usuario,
 		Sesion.ingresoSesion AS InicioSesion, Sesion.salidaSesion AS FinSesion
 	FROM Usuario 
@@ -65,7 +66,7 @@ CALL Mostrar_Sesiones();
 DELIMITER //
 CREATE PROCEDURE Registrar_Cierre_Sesion(horaSalida DATETIME, usuarioLogeado TINYINT UNSIGNED)
 BEGIN
-    UPDATE Sesion 
+	UPDATE Sesion 
 	SET salidaSesion=horaSalida 
 	WHERE id = (
 		SELECT MAX(id) 

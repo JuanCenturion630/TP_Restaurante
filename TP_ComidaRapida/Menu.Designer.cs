@@ -618,9 +618,9 @@
             this.lbl_Venta.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.lbl_Venta.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_Venta.ForeColor = System.Drawing.SystemColors.Control;
-            this.lbl_Venta.Location = new System.Drawing.Point(12, 404);
+            this.lbl_Venta.Location = new System.Drawing.Point(15, 404);
             this.lbl_Venta.Name = "lbl_Venta";
-            this.lbl_Venta.Size = new System.Drawing.Size(216, 20);
+            this.lbl_Venta.Size = new System.Drawing.Size(250, 20);
             this.lbl_Venta.TabIndex = 0;
             this.lbl_Venta.Text = "$ 0";
             this.lbl_Venta.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

@@ -51,7 +51,8 @@ namespace TP_ComidaRapida
                 foreach (Label precio in gbox.Controls.OfType<Label>())
                 {
                     c++;
-                    precio.Text = Convert.ToString(bd.Select("precio", "Comida", $"id='{c}'"));
+                    decimal precioComida = (decimal)bd.Select("precio", "Comida", $"id='{c}'");
+                    precio.Text = "$ " + precioComida.ToString("N");
                 }
             }
         }
@@ -153,7 +154,8 @@ namespace TP_ComidaRapida
             //Inicializa variables para insertar detalles de ticket en la base de datos.
             //Usando subconsultas, obtengo siempre el último ID de CuerpoTicket (el cuerpo de ticket más reciente).
             int idCuerpoTicket = Convert.ToInt32(bd.Select("id", "CuerpoTicket", "id=(SELECT MAX(id) FROM CuerpoTicket)"));
-            int idDetFormaPago = Convert.ToInt32(bd.Select("id", "DetallesFormaPago", "id=(SELECT MAX(id) FROM DetallesFormaPago)"));
+            int idDetallesFormaPago = Convert.ToInt32(bd.Select("id", "DetallesFormaPago", 
+                "id=(SELECT MAX(id) FROM DetallesFormaPago)"));
             #endregion
 
             #region Ticket en documento de texto:
@@ -176,7 +178,6 @@ namespace TP_ComidaRapida
 
                 using (StreamWriter sw = new StreamWriter(rutaArchivo, false))  //Genera texto en el archivo.
                 {
-                    sw.WriteLine("TICKET:\n");
                     sw.WriteLine("GRUPO X S.R.L.");
                     sw.WriteLine("CUIT: 20-42429088-1.");
                     sw.WriteLine("ING. BR.: 1007936-1.");
@@ -188,28 +189,28 @@ namespace TP_ComidaRapida
                     sw.WriteLine($"SUBTOTAL: $ {totalTicket.ToString("N")}");
                     sw.WriteLine("FORMA DE PAGO: EFECTIVO.\n");
                     sw.WriteLine("ARTÍCULOS:\n");
-                    
+                    sw.WriteLine("Cant.".PadRight(7) + "Precio Unit.".PadRight(14) + "Descripción".PadRight(20) + "Importe\n");
+
                     for (int i = 0; i < 12; i++)
                     {
                         if (cantidad[i] != 0)
                         {
-                            string cant = " ";
-                            string pxc = (precio[i] * cantidad[i]).ToString("N");
+                            string cant = cantidad[i].ToString(), precioUnit = precio[i].ToString("N"),
+                                    importe = (precio[i] * cantidad[i]).ToString("N");
 
-                            if (pxc.Length == 9) pxc = "".PadLeft(1) + (precio[i] * cantidad[i]).ToString("N");
-                            if (pxc.Length == 8) pxc = "".PadLeft(2) + (precio[i] * cantidad[i]).ToString("N");
-                            if (pxc.Length == 6) pxc = "".PadLeft(4) + (precio[i] * cantidad[i]).ToString("N");
-
-                            if (cantidad[i] < 10)
-                                cant = "0" + cantidad[i];
-                            else
-                                cant = cantidad[i].ToString();
+                            if (precioUnit.Length == 6) precioUnit = "".PadLeft(2) + precioUnit;
+                            if (importe.Length == 9) importe = "".PadLeft(1) + importe;
+                            if (importe.Length == 8) importe = "".PadLeft(2) + importe;
+                            if (importe.Length == 6) importe = "".PadLeft(4) + importe;
+                            if (cantidad[i] < 10) cant = "0" + cantidad[i];
 
                             //Escribe en el documento txt.
-                            sw.WriteLine($"x{cant} {comida[i]}".PadRight(24) + $"- $ {pxc}.");
+                            sw.WriteLine($"x{cant}".PadRight(7) + $"$  {precioUnit}".PadRight(14) + $"{comida[i]}".PadRight(20) +
+                                         $"$ {importe}");
+
                             //Escribe en la base de datos.
-                            bd.InsertInto("DetallesTicket", "idCuerpoTicket,idDetallesFormaPago,idComida,cant",
-                                $"'{idCuerpoTicket}','{idDetFormaPago}','{(i + 1)}','{cantidad[i]}'");
+                            bd.InsertInto("DetallesTicket", "idCuerpoTicket,idDetallesFormaPago,idComida,cant,importe",
+                            $"'{idCuerpoTicket}','{idDetallesFormaPago}','{(i + 1)}','{cantidad[i]}','{(precio[i] * cantidad[i])}'");
                         }
                     }
 

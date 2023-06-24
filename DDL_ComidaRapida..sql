@@ -77,3 +77,5 @@ CREATE TABLE IF NOT EXISTS DetallesTicket (
 	FOREIGN KEY (idDetallesFormaPago) REFERENCES DetallesFormaPago(id),
 	FOREIGN KEY (idComida) REFERENCES Comida(id)
 );
+
+ALTER TABLE DetallesTicket ADD COLUMN importe DECIMAL(10,2) NOT NULL;

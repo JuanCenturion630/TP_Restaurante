@@ -61,3 +61,4 @@ C:\Users\Juan\Desktop\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.
 C:\Users\Juan\Desktop\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.AgregarModificarUsuario.resources
 C:\Users\Juan\Desktop\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Gestiones.resources
 C:\Users\Juan\Desktop\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.AgregarModificarComida.resources
+C:\Users\Juan\Desktop\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Ticket.resources

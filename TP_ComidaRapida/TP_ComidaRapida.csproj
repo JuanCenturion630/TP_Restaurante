@@ -65,6 +65,12 @@
       <DependentUpon>AgregarModificarUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="ConexionMySQL.cs" />
+    <Compile Include="Ticket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ticket.Designer.cs">
+      <DependentUpon>Ticket.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerificarAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarModificarUsuario.resx">
       <DependentUpon>AgregarModificarUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ticket.resx">
+      <DependentUpon>Ticket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerificarAdmin.resx">
       <DependentUpon>VerificarAdmin.cs</DependentUpon>
