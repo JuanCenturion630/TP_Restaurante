@@ -163,7 +163,7 @@ namespace TP_ComidaRapida
             try
             {
                 //GUARDADO: Disco C:->Usuarios->Acceso Público
-                string nomArchivo = "GrupoX_ticket_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "..pdf";
+                string nomArchivo = "GrupoX_ticket_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "..txt";
                 string rutaArchivo = "C:\\Users\\Public\\" + nomArchivo;
 
                 int version = 1; //Cuenta las versiones de un ticket con el mismo nombre.
@@ -171,7 +171,7 @@ namespace TP_ComidaRapida
                 while (File.Exists(rutaArchivo)) //Mientras ya exista el archivo en la ruta...
                 {
                     //Crea un versión distinta sin sobreescribir el archivo original.
-                    nomArchivo = "GrupoX_ticket_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + version + "..pdf";
+                    nomArchivo = "GrupoX_ticket_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + version + "..txt";
                     rutaArchivo = "C:\\Users\\Public\\" + nomArchivo;
                     version++;
                 }
