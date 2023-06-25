@@ -178,17 +178,21 @@ namespace TP_ComidaRapida
 
                 using (StreamWriter sw = new StreamWriter(rutaArchivo, false))  //Genera texto en el archivo.
                 {
-                    sw.WriteLine("GRUPO X S.R.L.");
-                    sw.WriteLine("CUIT: 20-42429088-1.");
-                    sw.WriteLine("ING. BR.: 1007936-1.");
-                    sw.WriteLine("AV. ZAVALETA 204, PARQUE PATRICIOS, CAP. FED.");
-                    sw.WriteLine("Nº TICKET: " + idCuerpoTicket);
-                    sw.WriteLine("Emisor: " + Login.usuarioActual);
-                    sw.WriteLine($"{fechaTicket}\n");
-                    sw.WriteLine("TOTAL:".PadRight(10) + $"$ {totalTicket.ToString("N")}"); //"N" da formato de número. Ej.: 1.000.457 en vez de 1000457.
-                    sw.WriteLine($"SUBTOTAL: $ {totalTicket.ToString("N")}");
-                    sw.WriteLine("FORMA DE PAGO: EFECTIVO.\n");
-                    sw.WriteLine("ARTÍCULOS:\n");
+                    string guionIzq = new string('-', 20);
+                    string guionDer = new string('-', 22);
+                    sw.WriteLine(guionIzq + "GRUPO ¿? S.R.L." + guionDer + "\n");
+                    sw.WriteLine("".PadRight(6) + "CUIT: 20-42429088-1.");
+                    sw.WriteLine("".PadRight(2) + "ING. BR.: 1007936-1.");
+                    sw.WriteLine(" DIRECCIÓN: AV. ZAVALETA 204, PARQUE PATRICIOS, CAP. FED.");
+                    sw.WriteLine($" Nº TICKET: {idCuerpoTicket}. TIPO B.");
+                    sw.WriteLine("".PadRight(4) + $"EMISOR: {Login.usuarioActual.ToUpper()}.");
+                    sw.WriteLine("".PadRight(3) + $"EMISIÓN: {fechaTicket}.\n");
+                    sw.WriteLine("".PadRight(5) + $"TOTAL: $ {totalTicket.ToString("N")}."); //"N" da formato de número. Ej.: 1.000.457 en vez de 1000457.
+                    sw.WriteLine("".PadRight(2) + $"SUBTOTAL: $ {totalTicket.ToString("N")}.");
+                    sw.WriteLine("FORM. PAGO: EFECTIVO.\n");
+                    guionIzq = new string('-', 23);
+                    guionDer = new string('-', 25);
+                    sw.WriteLine(guionIzq + "ARTÍCULOS:" + guionDer + "\n");
                     sw.WriteLine("Cant.".PadRight(7) + "Precio Unit.".PadRight(14) + "Descripción".PadRight(20) + "Importe\n");
 
                     for (int i = 0; i < 12; i++)
@@ -214,8 +218,8 @@ namespace TP_ComidaRapida
                         }
                     }
 
-                    sw.WriteLine("\nIVA RESPONSABLE INSCRIPTO A CONSUMIDOR FINAL");
-                    sw.WriteLine("CF ETA 32000023DGI (logotipo fiscal)");
+                    sw.WriteLine("\nIVA RESPONSABLE INSCRIPTO A CONSUMIDOR FINAL.");
+                    sw.WriteLine("CF ETA 32000023DGI (logotipo fiscal).");
                 }
 
                 MessageBox.Show("Ticket de factura generado correctamente.");
