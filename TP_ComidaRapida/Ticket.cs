@@ -26,15 +26,13 @@ namespace TP_ComidaRapida
 
             try
             {
-                // Leer el contenido del archivo
+                //Leer el contenido del documento.
                 string contenido = File.ReadAllText(ruta);
-
-                // Mostrar el contenido en el TextBox
-                rtxt_Ticket.Text = contenido;
+                txt_Ticket.Text = contenido;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al cargar el archivo: " + ex.Message);
+                MessageBox.Show("Error al cargar el ticket: " + ex.Message);
             }
         }
     }
