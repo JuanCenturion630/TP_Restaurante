@@ -192,7 +192,7 @@ namespace TP_ComidaRapida
                     sw.WriteLine("FORM. PAGO: EFECTIVO.\n");
                     guionIzq = new string('-', 23);
                     guionDer = new string('-', 25);
-                    sw.WriteLine(guionIzq + "ARTÍCULOS:" + guionDer + "\n");
+                    sw.WriteLine(guionIzq + "ARTÍCULOS" + guionDer + "\n");
                     sw.WriteLine("Cant.".PadRight(7) + "Precio Unit.".PadRight(14) + "Descripción".PadRight(20) + "Importe\n");
 
                     for (int i = 0; i < 12; i++)
