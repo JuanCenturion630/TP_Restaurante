@@ -128,7 +128,7 @@
             this.btn_Imprimir.Name = "btn_Imprimir";
             this.btn_Imprimir.Size = new System.Drawing.Size(41, 50);
             this.btn_Imprimir.TabIndex = 1;
-            this.btn_Imprimir.Text = "Imp";
+            this.btn_Imprimir.Text = "Detalles";
             this.toolTip_infoControles.SetToolTip(this.btn_Imprimir, "Imprime el Ticket.");
             this.btn_Imprimir.UseVisualStyleBackColor = true;
             this.btn_Imprimir.Click += new System.EventHandler(this.btn_Imprimir_Click);

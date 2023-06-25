@@ -210,7 +210,8 @@ namespace TP_ComidaRapida
 
         private void btn_Imprimir_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Aún no programado.");
+            Ticket ticket = new Ticket();
+            ticket.ShowDialog();
         }
 
         private void btn_Menu_Click(object sender, EventArgs e)
