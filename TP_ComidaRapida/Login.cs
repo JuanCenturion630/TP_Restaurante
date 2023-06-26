@@ -22,6 +22,7 @@ namespace TP_ComidaRapida
             Controladores cs = new Controladores();
             cs.ActualizarControles(this);
             btn_MostrarPassword.Click += (sender, e) => cs.MostrarOcultarPassword(sender, e, txt_passwordUser);
+            txt_passwordUser.KeyPress += (sender, e) => cs.AlfanumericoMenorA(sender, e, 15);
         }
 
         static string usuarioActual, password;
