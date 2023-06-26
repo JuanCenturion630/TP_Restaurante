@@ -43,7 +43,7 @@ namespace TP_ComidaRapida
             esAdmin = estado;
         }
 
-        protected void ConsultaRepetitiva(int admin, string nombre, string apellido, string usuario, string password, 
+        protected void InsertarUsuario(int admin, string nombre, string apellido, string usuario, string password, 
             string fechaVolteada, double edad, string ingreso, string egreso)
         {
             ConexionSQL bd = new ConexionSQL();
@@ -83,10 +83,10 @@ namespace TP_ComidaRapida
                     if (check_Empleado.Checked)
                     {
                         if (cmb_Turnos.SelectedIndex == 0)
-                            ConsultaRepetitiva(0, nombre, apellido, usuario, txt_Password.Text, fechaVolteada, edadCalc, 
+                            InsertarUsuario(0, nombre, apellido, usuario, txt_Password.Text, fechaVolteada, edadCalc, 
                                 "08:00:00", "16:00:00");
                         else
-                            ConsultaRepetitiva(0, nombre, apellido, usuario, txt_Password.Text, fechaVolteada, edadCalc, 
+                            InsertarUsuario(0, nombre, apellido, usuario, txt_Password.Text, fechaVolteada, edadCalc, 
                                 "16:00:00", "23:59:59");
                         MessageBox.Show("Usuario creado con éxito.");
                         Limpiar(); //Limpiar los controles.
@@ -96,10 +96,10 @@ namespace TP_ComidaRapida
                         if (esAdmin)
                         {
                             if (cmb_Turnos.SelectedIndex == 0)
-                                ConsultaRepetitiva(1, nombre, apellido, usuario, txt_Password.Text, fechaVolteada, edadCalc, 
+                                InsertarUsuario(1, nombre, apellido, usuario, txt_Password.Text, fechaVolteada, edadCalc, 
                                     "08:00:00", "16:00:00");
                             else
-                                ConsultaRepetitiva(1, nombre, apellido, usuario, txt_Password.Text, fechaVolteada, edadCalc, 
+                                InsertarUsuario(1, nombre, apellido, usuario, txt_Password.Text, fechaVolteada, edadCalc, 
                                     "16:00:00", "23:59:59");
                             Limpiar(); //Limpiar los controles.
                         }
