@@ -123,7 +123,6 @@
             this.btn_MostrarPassword.TabIndex = 11;
             this.toolTip_infoControles.SetToolTip(this.btn_MostrarPassword, "Ocultar la contraseña.");
             this.btn_MostrarPassword.UseVisualStyleBackColor = true;
-            this.btn_MostrarPassword.Click += new System.EventHandler(this.btn_MostrarPassword_Click);
             // 
             // Login
             // 

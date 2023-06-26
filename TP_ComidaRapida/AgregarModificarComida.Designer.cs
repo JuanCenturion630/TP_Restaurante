@@ -63,7 +63,6 @@
             this.txt_Comida.Name = "txt_Comida";
             this.txt_Comida.Size = new System.Drawing.Size(133, 20);
             this.txt_Comida.TabIndex = 12;
-            this.txt_Comida.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txt_Precio
             // 
@@ -71,7 +70,6 @@
             this.txt_Precio.Name = "txt_Precio";
             this.txt_Precio.Size = new System.Drawing.Size(133, 20);
             this.txt_Precio.TabIndex = 13;
-            this.txt_Precio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // btn_Agregar
             // 
@@ -113,11 +111,11 @@
 
         #endregion
 
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox txt_Comida;
-        public System.Windows.Forms.TextBox txt_Precio;
-        public System.Windows.Forms.Button btn_Agregar;
-        public System.Windows.Forms.Button btn_Modificar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txt_Comida;
+        private System.Windows.Forms.TextBox txt_Precio;
+        private System.Windows.Forms.Button btn_Agregar;
+        private System.Windows.Forms.Button btn_Modificar;
     }
 }

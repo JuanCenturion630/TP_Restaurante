@@ -92,7 +92,6 @@
             this.btn_MostrarPassword.TabIndex = 10;
             this.toolTip_MostrarPassword.SetToolTip(this.btn_MostrarPassword, "Oculta la contraseña.");
             this.btn_MostrarPassword.UseVisualStyleBackColor = true;
-            this.btn_MostrarPassword.Click += new System.EventHandler(this.btn_MostrarPassword_Click);
             // 
             // VerificarAdmin
             // 

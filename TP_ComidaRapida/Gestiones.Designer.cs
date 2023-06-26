@@ -128,7 +128,7 @@
             this.btn_Imprimir.Name = "btn_Imprimir";
             this.btn_Imprimir.Size = new System.Drawing.Size(41, 50);
             this.btn_Imprimir.TabIndex = 1;
-            this.btn_Imprimir.Text = "Detalles";
+            this.btn_Imprimir.Text = ".txt";
             this.toolTip_infoControles.SetToolTip(this.btn_Imprimir, "Imprime el Ticket.");
             this.btn_Imprimir.UseVisualStyleBackColor = true;
             this.btn_Imprimir.Click += new System.EventHandler(this.btn_Imprimir_Click);
@@ -172,7 +172,6 @@
             this.Name = "Gestiones";
             this.Text = "Gestionar Usuarios";
             this.Activated += new System.EventHandler(this.Gestiones_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Gestiones_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Tablas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

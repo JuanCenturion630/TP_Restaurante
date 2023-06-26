@@ -58,7 +58,6 @@
             this.txt_Nombre.Name = "txt_Nombre";
             this.txt_Nombre.Size = new System.Drawing.Size(134, 21);
             this.txt_Nombre.TabIndex = 0;
-            this.txt_Nombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txt_Apellido
             // 
@@ -67,7 +66,6 @@
             this.txt_Apellido.Name = "txt_Apellido";
             this.txt_Apellido.Size = new System.Drawing.Size(134, 21);
             this.txt_Apellido.TabIndex = 1;
-            this.txt_Apellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_KeyPress);
             // 
             // txt_Password
             // 
@@ -165,7 +163,6 @@
             this.btn_MostrarPassword.TabIndex = 3;
             this.toolTip_infoControles.SetToolTip(this.btn_MostrarPassword, "Oculta la contraseña");
             this.btn_MostrarPassword.UseVisualStyleBackColor = true;
-            this.btn_MostrarPassword.Click += new System.EventHandler(this.btn_MostrarPassword_Click);
             // 
             // check_Empleado
             // 
@@ -275,22 +272,22 @@
         #endregion
         private System.Windows.Forms.ToolTip toolTip_infoControles;
         private System.Windows.Forms.ErrorProvider errorProvider;
-        public System.Windows.Forms.Button btn_InicioSesion;
-        public System.Windows.Forms.TextBox txt_Nombre;
-        public System.Windows.Forms.TextBox txt_Apellido;
-        public System.Windows.Forms.TextBox txt_Password;
-        public System.Windows.Forms.DateTimePicker dtp_fechaNacimiento;
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.Label label3;
-        public System.Windows.Forms.Label label4;
-        public System.Windows.Forms.Label label5;
-        public System.Windows.Forms.Button btn_MostrarPassword;
-        public System.Windows.Forms.RadioButton check_Empleado;
-        public System.Windows.Forms.RadioButton check_Admin;
-        public System.Windows.Forms.Label label8;
-        public System.Windows.Forms.TextBox txt_Usuario;
-        public System.Windows.Forms.ComboBox cmb_Turnos;
-        public System.Windows.Forms.Button btn_Registrarse;
+        protected System.Windows.Forms.Button btn_InicioSesion;
+        protected System.Windows.Forms.TextBox txt_Nombre;
+        protected System.Windows.Forms.TextBox txt_Apellido;
+        protected System.Windows.Forms.TextBox txt_Password;
+        protected System.Windows.Forms.DateTimePicker dtp_fechaNacimiento;
+        protected System.Windows.Forms.Label label1;
+        protected System.Windows.Forms.Label label2;
+        protected System.Windows.Forms.Label label3;
+        protected System.Windows.Forms.Label label4;
+        protected System.Windows.Forms.Label label5;
+        protected System.Windows.Forms.Button btn_MostrarPassword;
+        protected System.Windows.Forms.RadioButton check_Empleado;
+        protected System.Windows.Forms.RadioButton check_Admin;
+        protected System.Windows.Forms.Label label8;
+        protected System.Windows.Forms.TextBox txt_Usuario;
+        protected System.Windows.Forms.ComboBox cmb_Turnos;
+        protected System.Windows.Forms.Button btn_Registrarse;
     }
 }

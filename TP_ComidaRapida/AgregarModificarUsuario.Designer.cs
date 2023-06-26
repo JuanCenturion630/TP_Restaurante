@@ -70,14 +70,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(260, 271);
-            this.Controls.Add(this.btn_Modificar);
             this.Controls.Add(this.btn_Agregar);
+            this.Controls.Add(this.btn_Modificar);
             this.Name = "AgregarModificarUsuario";
             this.Text = "AgregarModificarUsuario";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Registrarse_FormClosing);
+            this.Controls.SetChildIndex(this.btn_Modificar, 0);
             this.Controls.SetChildIndex(this.btn_Registrarse, 0);
             this.Controls.SetChildIndex(this.btn_Agregar, 0);
-            this.Controls.SetChildIndex(this.btn_Modificar, 0);
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.btn_InicioSesion, 0);
             this.Controls.SetChildIndex(this.btn_MostrarPassword, 0);
@@ -100,7 +100,8 @@
         }
 
         #endregion
-        public System.Windows.Forms.Button btn_Modificar;
-        public System.Windows.Forms.Button btn_Agregar;
+
+        private System.Windows.Forms.Button btn_Modificar;
+        private System.Windows.Forms.Button btn_Agregar;
     }
 }

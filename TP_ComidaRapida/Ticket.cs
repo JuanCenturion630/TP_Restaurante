@@ -16,12 +16,13 @@ namespace TP_ComidaRapida
         public Ticket()
         {
             InitializeComponent();
-            ModificarControles mc = new ModificarControles();
-            mc.ActualizarControles(this);
+            Controladores cs = new Controladores();
+            cs.ActualizarControles(this);
         }
 
         private void Ticket_Load(object sender, EventArgs e)
         {
+            //PROGRAMACIÓN PENDIENTE...
             string ruta = "C:\\Users\\Public\\GrupoX_ticket_20230625_031549..txt";
 
             try

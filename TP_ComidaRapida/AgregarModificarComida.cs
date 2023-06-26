@@ -16,81 +16,82 @@ namespace TP_ComidaRapida
         public AgregarModificarComida()
         {
             InitializeComponent();
-            ModificarControles mc = new ModificarControles();
-            mc.ActualizarControles(this);
+            Controladores cs = new Controladores();
+            cs.ActualizarControles(this);
+            txt_Comida.KeyPress += (sender, e) => cs.SoloTextoMenorA(sender, e, 39);
+            txt_Precio.KeyPress += (sender, e) => cs.SoloNumerosConComa_LimitarCantDeDigitos(sender, e, 7);
         }
 
-        ConexionSQL bd = new ConexionSQL();
+        string comidaTruncada;
 
-        public bool TextoEnBlanco()
+        public void SetComidaTruncada(string comida)
         {
-            foreach (TextBox txt in Controls.OfType<TextBox>())
-            {
-                if (string.IsNullOrWhiteSpace(txt.Text))
-                {
-                    MessageBox.Show("Rellene todos los campos.");
-                    return true;
-                }
-            }
-            return false;
+            comidaTruncada = comida;
         }
 
-        public bool Repetidos(string excepto)
+        #region Setters para TextBoxs:
+
+        public void SetTextTxtComida(string contenido)
         {
-            if (excepto != txt_Comida.Text)
-            {
-                object comidaRepetida = bd.Select("nombre", "Comida", $"nombre='{txt_Comida.Text}' AND descartado=0");
-                if (comidaRepetida != null) //Si la consulta NO da NULL, encontró un usuario repetido.
-                {
-                    MessageBox.Show("El platillo ya fue registrado.");
-                    return true;
-                }
-            }
-            return false;
+            txt_Comida.Text = contenido;
         }
 
-        public string DarFormato()
+        public void SetTextTxtPrecio(string contenido)
         {
-            //Convierte todo en minúsculas y luego le aplica ToTitleCase para colocar en mayúscula la primera letra.
-            TextInfo formato = CultureInfo.CurrentCulture.TextInfo;
-            string comida = formato.ToTitleCase(txt_Comida.Text.ToLower()); //Ej.: "haMbURguEsA chICa" = "Hamburguesa Chica"
-            return comida;
+            txt_Precio.Text = contenido;
         }
+        #endregion
+
+        #region Setters para Buttons:
+
+        public void SetVisibleBtnAgregar(bool estado)
+        {
+            btn_Agregar.Visible = estado;
+        }
+
+        public void SetAcceptButtonBtnAgregar()
+        {
+            AcceptButton = btn_Agregar;
+        }
+
+        public void SetVisibleBtnModificar(bool estado)
+        {
+            btn_Modificar.Visible = estado;
+        }
+
+        public void SetAcceptButtonBtnModificar()
+        {
+            AcceptButton = btn_Modificar;
+        }
+        #endregion
 
         private void btn_Agregar_Click(object sender, EventArgs e)
         {
-            if (!TextoEnBlanco() && !Repetidos(comidaTruncada))
+            ConexionSQL bd = new ConexionSQL();
+            Controladores cs = new Controladores();
+
+            if (!cs.TextoEnBlanco(this) && !cs.RepetidoEnBaseDeDatos("nombre", "Comida", txt_Comida))
             {
-                string plato = DarFormato();
-                bd.InsertInto("Comida", "nombre,precio,descartado", $"'{plato}','{txt_Precio.Text}','0'");
-                MessageBox.Show("Datos creados con éxito.");
+                string plato = cs.DarFormato(txt_Comida, "ToTitleCase");
+                bd.InsertInto("Comida", "nombre,precio,borradoLogico", $"'{plato}','{txt_Precio.Text}','0'");
+                MessageBox.Show("Plato creado con éxito.");
                 this.Hide();
             }
         }
-
-        public string comidaTruncada;
 
         private void btn_Modificar_Click(object sender, EventArgs e)
         {
-            if (!TextoEnBlanco() && !Repetidos(comidaTruncada))
+            ConexionSQL bd = new ConexionSQL();
+            Controladores cs = new Controladores();
+
+            if (!cs.TextoEnBlanco(this) && !cs.RepetidoEnBaseDeDatos("nombre", "Comida", txt_Comida, comidaTruncada))
             {
-                string plato = DarFormato();
-                bd.Update($"UPDATE Comida SET nombre='{plato}' WHERE nombre='{comidaTruncada}'");
-                bd.Update($"UPDATE Comida SET precio='{txt_Precio.Text}' WHERE nombre='{comidaTruncada}'");
-                MessageBox.Show("Datos actualizados con éxito.");
+                string plato = cs.DarFormato(txt_Comida, "ToTitleCase");
+                bd.Consulta($"UPDATE Comida SET nombre='{plato}' WHERE nombre='{comidaTruncada}'");
+                bd.Consulta($"UPDATE Comida SET precio='{txt_Precio.Text}' WHERE nombre='{comidaTruncada}'");
+                MessageBox.Show("Plato actualizado con éxito.");
                 this.Hide();
             }
-        }
-
-        private void txt_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            TextBox txt = (TextBox)sender;
-            if (txt == txt_Comida)
-                if (!char.IsLetter(e.KeyChar) && e.KeyChar != '\b' && e.KeyChar != ' ')
-                    e.Handled = true; //Cancela la tecla presionada.
-            if (txt == txt_Precio)
-                if (!char.IsNumber(e.KeyChar) && e.KeyChar != '\b' && e.KeyChar != '.')
-                    e.Handled = true; //Cancela la tecla presionada.
         }
     }
 }

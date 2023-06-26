@@ -15,37 +15,117 @@ namespace TP_ComidaRapida
         public AgregarModificarUsuario()
         {
             InitializeComponent();
-            ModificarControles mc = new ModificarControles();
-            mc.ActualizarControles(this);
+            Controladores cs = new Controladores();
+            cs.ActualizarControles(this);
         }
 
-        public string usuarioTruncado;
+        string usuarioTruncado;
 
-        protected bool Repetidos(string excepto)
+        public void SetUsuarioTruncado(string usuario)
         {
-            if (excepto != txt_Usuario.Text)
-            {
-                usuarioRepetido = bd.Select("usuario", "Usuario", $"usuario='{txt_Usuario.Text}' AND despedido=0");
-                if (usuarioRepetido != null) //Si la consulta NO da NULL, encontró un usuario repetido.
-                {
-                    MessageBox.Show("El nombre de usuario ya esta en uso.");
-                    return true;
-                }
-            }
-            return false;
+            usuarioTruncado = usuario;
         }
+
+        #region Setters para botones:
+
+        public void SetVisibleBtnRegistrarse(bool estado)
+        {
+            btn_Registrarse.Visible = estado;
+        }
+
+        public void SetVisibleBtnInicioSesion(bool estado)
+        {
+            btn_InicioSesion.Visible = estado;
+        }
+
+        public void SetVisibleBtnAgregar(bool estado)
+        {
+            btn_Agregar.Visible = estado;
+        }
+
+        public void SetAcceptButtonBtnAgregar()
+        {
+            AcceptButton = btn_Agregar;
+        }
+
+        public void SetVisibleBtnModificar(bool estado)
+        {
+            btn_Modificar.Visible = estado;
+        }
+
+        public void SetAcceptButtonBtnModificar()
+        {
+            AcceptButton = btn_Modificar;
+        }
+        #endregion
+
+        #region Setters para RadioButtons:
+
+        public void SetCheckedCheckAdmin(bool estado)
+        {
+            check_Admin.Checked = estado;
+        }
+
+        public void SetCheckedCheckEmpleado(bool estado)
+        {
+            check_Empleado.Checked = estado;
+        }
+        #endregion
+
+        #region Setters para TextBoxs:
+
+        public void SetTextTxtNombre(string contenido)
+        {
+            txt_Nombre.Text = contenido;
+        }
+
+        public void SetTextTxtApellido(string contenido)
+        {
+            txt_Apellido.Text = contenido;
+        }
+
+        public void SetTextTxtUsuario(string contenido)
+        {
+            txt_Usuario.Text = contenido;
+        }
+
+        public void SetTextTxtPassword(string contenido)
+        {
+            txt_Password.Text = contenido;
+        }
+        #endregion
+
+        #region Setters para DateTimePickers:
+
+        public void SetValueDtpFechaNacimiento(DateTime fecha)
+        {
+            dtp_fechaNacimiento.Value = fecha;
+        }
+        #endregion
+
+        #region Setters para ComboBoxs:
+
+        public void SetSelectedIndexCmbTurnos(int indice)
+        {
+            cmb_Turnos.SelectedIndex = indice;
+        }
+        #endregion
 
         private void btn_Modificar_Click(object sender, EventArgs e)
         {
-            if (!TextoEnBlanco() && !Repetidos(usuarioTruncado))
+            ConexionSQL bd = new ConexionSQL();
+            Controladores cs = new Controladores();
+            if (!cs.TextoEnBlanco(this) && !cs.RepetidoEnBaseDeDatos("usuario", "Usuario", txt_Usuario, usuarioTruncado))
             {
-                resultado = CalcularEdad();
+                double edadCalc = CalcularEdad();
                 bool adminCheck;
                 string ingreso, egreso;
-                fechaVolteada = dtp_fechaNacimiento.Value.Date.ToString("yyyy/MM/dd");
+                string fechaVolteada = dtp_fechaNacimiento.Value.Date.ToString("yyyy/MM/dd");
 
-                if (check_Admin.Checked) adminCheck = true;
-                else adminCheck = false;
+                if (check_Admin.Checked)
+                    adminCheck = true;
+                else
+                    adminCheck = false;
 
                 if (cmb_Turnos.SelectedIndex == 0)
                 {
@@ -59,15 +139,15 @@ namespace TP_ComidaRapida
                 }
 
                 //Se intentó hacer una única llamada a bd.Update, pero no se pudo. Pendiente de edición.
-                bd.Update($"UPDATE Usuario SET administrador={adminCheck} WHERE usuario='{usuarioTruncado}'");
-                bd.Update($"UPDATE Usuario SET nombre='{txt_Nombre.Text}' WHERE usuario='{usuarioTruncado}'");
-                bd.Update($"UPDATE Usuario SET apellido='{txt_Apellido.Text}' WHERE usuario='{usuarioTruncado}'");
-                bd.Update($"UPDATE Usuario SET usuario='{txt_Usuario.Text}' WHERE usuario='{usuarioTruncado}'");
-                bd.Update($"UPDATE Usuario SET pass='{txt_Password.Text}' WHERE usuario='{usuarioTruncado}'");
-                bd.Update($"UPDATE Usuario SET fechaNacimiento='{fechaVolteada}' WHERE usuario='{usuarioTruncado}'");
-                bd.Update($"UPDATE Usuario SET edad='{resultado}' WHERE usuario='{usuarioTruncado}'");
-                bd.Update($"UPDATE Usuario SET horaIngreso='{ingreso}' WHERE usuario='{usuarioTruncado}'");
-                bd.Update($"UPDATE Usuario SET horaSalida='{egreso}' WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET administrador={adminCheck} WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET nombre='{txt_Nombre.Text}' WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET apellido='{txt_Apellido.Text}' WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET usuario='{txt_Usuario.Text}' WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET pass='{txt_Password.Text}' WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET fechaNacimiento='{fechaVolteada}' WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET edad='{edadCalc}' WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET horaIngreso='{ingreso}' WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET horaSalida='{egreso}' WHERE usuario='{usuarioTruncado}'");
 
                 MessageBox.Show("Datos actualizados con éxito.");
                 this.Hide();

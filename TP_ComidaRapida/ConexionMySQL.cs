@@ -157,7 +157,7 @@ namespace TP_ComidaRapida
         /// <summary>
         /// UPDATE tabla SET columna=nuevoValor WHERE condicion. Solo toma una columna a la vez.
         /// </summary>
-        public void Update(string consulta)
+        public void Consulta(string consulta)
         {
             try
             {
