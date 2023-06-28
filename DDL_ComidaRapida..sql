@@ -14,8 +14,7 @@ CREATE TABLE IF NOT EXISTS Usuario (
 	horaIngreso TIME NOT NULL,
 	horaSalida TIME NOT NULL
 );
-select * from usuario;
-update usuario SET recordarSesion=0;
+
 ALTER TABLE Usuario ADD COLUMN recordarUsuario BOOLEAN;
 ALTER TABLE Usuario CHANGE recordarUsuario recordarSesion BOOLEAN;
 ALTER TABLE Usuario ADD COLUMN borradoLogico BOOLEAN;
