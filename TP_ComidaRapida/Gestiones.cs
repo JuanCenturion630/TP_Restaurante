@@ -17,7 +17,7 @@ namespace TP_ComidaRapida
             InitializeComponent();
             Controladores cs = new Controladores();
             cs.ActualizarControles(this);
-            this.FormClosing += cs.CerrarFormulario;
+            this.FormClosing += cs.CerrarForm_RegistrarCierreSesion;
             txt_Buscador.TabIndex = 0;
         }
 
@@ -278,22 +278,22 @@ namespace TP_ComidaRapida
             switch (opcion)
             {
                 case "usuario":
-                    bd.RellenarControl(dgv,
+                    bd.RellenarDGV(dgv,
                         "administrador AS Admin,nombre AS Nombre,apellido AS Apellido,usuario AS Usuario,pass AS Password,fechaNacimiento AS Nacimiento,edad AS Edad,horaIngreso AS Ingreso,horaSalida AS Egreso",
                         "Usuario",
                         "borradoLogico=0");
                     break;
                 case "comida":
-                    bd.RellenarControl(dgv, 
+                    bd.RellenarDGV(dgv, 
                         "nombre AS Comida,precio AS Precio", 
                         "Comida",
                         "borradoLogico=0");
                     break;
                 case "ticket":
-                    bd.RellenarControl(dgv, "Crear_Ticket()");
+                    bd.RellenarDGV(dgv, "Crear_Ticket()");
                     break;
                 case "sesion":
-                    bd.RellenarControl(dgv, "Mostrar_Sesiones()");
+                    bd.RellenarDGV(dgv, "Mostrar_Sesiones()");
                     break;
             }
         }

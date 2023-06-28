@@ -13,6 +13,9 @@ namespace TP_ComidaRapida
 {
     public class Controladores
     {
+        /// <summary>
+        /// Da formato al Form y sus controles. Color, fondo y otros efectos visuales.
+        /// </summary>
         public void ActualizarControles(Form formulario)
         {
             try
@@ -88,6 +91,28 @@ namespace TP_ComidaRapida
             }
         }
 
+        /// <summary>
+        /// Da formato a la cadena de texto.
+        /// </summary>
+        /// <param name="txt">Nombre del TextBox.</param>
+        /// <param name="tipoFormato">"ToTitleCase" para poner la primera letra en mayúsculas/"ToLower" para poner todo en minúsculas.</param>
+        /// <returns></returns>
+        public string DarFormato(TextBox txt, string tipoFormato)
+        {
+            string textoFormateado = "";
+            switch (tipoFormato)
+            {
+                case "ToTitleCase":
+                    TextInfo formato = CultureInfo.CurrentCulture.TextInfo;
+                    textoFormateado = formato.ToTitleCase(txt.Text.ToLower()); //Ej.: "jUAn paBLO" = "Juan Pablo"
+                    break;
+                case "ToLower":
+                    textoFormateado = txt.Text.ToLower();
+                    break;
+            }
+            return textoFormateado;
+        }
+
         public bool TextoEnBlanco(Form formulario)
         {
             foreach (TextBox txt in formulario.Controls.OfType<TextBox>())
@@ -128,22 +153,6 @@ namespace TP_ComidaRapida
             return false;
         }
 
-        public string DarFormato(TextBox txt, string tipoFormato)
-        {
-            string textoFormateado = "";
-            switch (tipoFormato)
-            {
-                case "ToTitleCase":
-                    TextInfo formato = CultureInfo.CurrentCulture.TextInfo;
-                    textoFormateado = formato.ToTitleCase(txt.Text.ToLower()); //Ej.: "jUAn paBLO" = "Juan Pablo"
-                    break;
-                case "ToLower":
-                    textoFormateado = txt.Text.ToLower();
-                    break;
-            }
-            return textoFormateado;
-        }
-
         public void SoloNumeros_LimitarCantDeDigitos(object sender, KeyPressEventArgs e, int maximo)
         {
             /* El objecto sender representa al Control que activó el evento y se convierte a la clase TextBox
@@ -173,12 +182,24 @@ namespace TP_ComidaRapida
 
         public void AlfanumericoMenorA(object sender, KeyPressEventArgs e, int maximo)
         {
-            TextBox txt = (TextBox)sender;
-            if (txt.TextLength > maximo && e.KeyChar != '\b')
-                e.Handled = true; //Cancela la tecla presionada.
+            Control ctrl = (Control)sender;
+
+            if (ctrl is TextBox)
+            {
+                TextBox txt = (TextBox)ctrl;
+                if (txt.TextLength > maximo && e.KeyChar != '\b')
+                    e.Handled = true; //Cancela la tecla presionada.
+            }
+
+            if (ctrl is ComboBox)
+            {
+                ComboBox cmb = (ComboBox)ctrl;
+                if (cmb.Text.Length > maximo && e.KeyChar != '\b')
+                    e.Handled = true; //Cancela la tecla presionada.
+            }
         }
 
-        public void CerrarFormulario(object sender, FormClosingEventArgs e)
+        public void CerrarForm_RegistrarCierreSesion(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show("¿Desea cerrar la aplicación?", "Aviso",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)

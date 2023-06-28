@@ -2,8 +2,8 @@ USE BD_ComidaRapida;
 
 INSERT INTO Usuario(administrador,nombre,apellido,usuario,pass,fechaNacimiento,edad,horaIngreso,horaSalida,borradoLogico)
 VALUES (1,"Juan","Centurión","jcenturion630","12345678","2000-03-06",23,"08:00:00","16:00:00",0),
-		(1,"Leandro","Deferrari","ldeferrari999","12345678","1990-01-01",30,"16:00:00","23:59:59",0),
-		(0,"Diego","Hidalgo","dhidalgo999","12345678","2001/01/01",22,"16:00:00","23:59:59",0);
+		(1,"Leandro","Deferrari","ldeferrari999","10101010","1990-01-01",30,"16:00:00","23:59:59",0),
+		(0,"Diego","Hidalgo","dhidalgo999","11110000","2001/01/01",22,"16:00:00","23:59:59",0);
 SELECT * FROM Usuario;
 
 INSERT INTO Empresa(nombre,CUIT,ingBruto,direccion)
@@ -32,7 +32,7 @@ BEGIN
 		CuerpoTicket.id AS Nro,
 		Usuario.usuario AS Emisor,
 		CuerpoTicket.fechaEmision AS Emision, CuerpoTicket.total AS Total,
-		FormaPago.tipo AS Forma_Pago, 
+		FormaPago.tipo AS Forma_Pago,
 		DetallesFormaPago.monto AS Subtotal,
 		DetallesTicket.cant AS Cantidad,
 		Comida.precio AS Precio_Unitario, Comida.nombre AS Descripcion,
@@ -75,5 +75,3 @@ BEGIN
 END //
 DELIMITER ;
 CALL Registrar_Cierre_Sesion('2050/01/10 00:05:00',2); /* PRUEBO EL STORE PROCEDURE */
-
-select * from cuerpoticket;

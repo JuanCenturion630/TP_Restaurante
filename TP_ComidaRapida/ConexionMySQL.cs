@@ -13,26 +13,6 @@ namespace TP_ComidaRapida
         MySqlConnection conexion = new MySqlConnection(servidor); //Instancia un objeto MySQL con la ruta.
 
         /* Uso de lenguaje de marcado XML para escribir mensajes orientativos sobre los métodos siguientes. */
-        /// <summary>
-        /// INSERT INTO tabla(columna1,columna2,columna3...) VALUES (valor1,valor2,valor3...)
-        /// </summary>
-        public void InsertInto(string tabla, string columna, string valor)
-        {
-            try
-            {
-                conexion.Open(); //Abre conexión con el servidor.
-                //INSERT INTO Usuario (administrador, nombre, apellido, usuario...) 
-                //       VALUES (1,'Juan','Centurión','jcenturion630'...)
-                string consulta = $"INSERT INTO {tabla} ({columna}) VALUES ({valor})";
-                MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
-                comando.ExecuteNonQuery(); //Ejecuta la consulta.
-                conexion.Close(); //Cierra conexión con el servidor.
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al insertar datos: " + ex.Message);
-            }
-        }
 
         /// <summary>
         /// SELECT columna1,columna2,columna3 FROM tabla WHERE condicion.
@@ -59,79 +39,25 @@ namespace TP_ComidaRapida
         }
 
         /// <summary>
-        /// Realiza un SELECT columna FROM tabla para rellenar un Control.
+        /// INSERT INTO tabla(columna1,columna2,columna3...) VALUES (valor1,valor2,valor3...)
         /// </summary>
-        /// <param name="dgv">El control utilizado. Ej. DataGridView, ComboBox, etc...</param>
-        /// <param name="store_procedure">El nombre del STORE PROCEDURE debe ir acompañado de paréntesis. Ej.: Crear_Ticket()</param>
-        public void RellenarControl(DataGridView dgv, string store_procedure)
+        public void InsertInto(string tabla, string columna, string valor)
         {
             try
             {
                 conexion.Open(); //Abre conexión con el servidor.
-                string consulta = $"CALL {store_procedure}";
+                //INSERT INTO Usuario (administrador, nombre, apellido, usuario...) 
+                //       VALUES (1,'Juan','Centurión','jcenturion630'...)
+                string consulta = $"INSERT INTO {tabla} ({columna}) VALUES ({valor})";
                 MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
-                MySqlDataReader datos = comando.ExecuteReader(); //Trae datos de la tabla a la aplicación.
-
-                DataTable tablaVirtual = new DataTable(); //Crea una tabla virtual para darle formato al objeto "datos".
-                tablaVirtual.Load(datos); //Carga los datos en la tabla virtual.
-                dgv.DataSource = tablaVirtual; //Rellena el DataGridView con el DataTable.
-
+                comando.ExecuteNonQuery(); //Ejecuta la consulta.
                 conexion.Close(); //Cierra conexión con el servidor.
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar el ComboBox: " + ex.Message);
+                MessageBox.Show("Error al insertar datos: " + ex.Message);
             }
-        }
-
-        /// <summary>
-        /// Realiza un SELECT columna FROM tabla para rellenar un Control.
-        /// </summary>
-        /// <param name="ctrl">El control utilizado. Ej. DataGridView, ComboBox, etc...</param>
-        public void RellenarControl(Control ctrl, string columna, string tabla, string where)
-        {
-            try
-            {
-                conexion.Open(); //Abre conexión con el servidor.
-                string consulta = $"SELECT {columna} FROM {tabla}";
-                if (!string.IsNullOrEmpty(where)) //Si la variable "where" no es un espacio en blanco.
-                    consulta += $" WHERE {where}";
-                MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
-                MySqlDataReader datos = comando.ExecuteReader(); //Trae datos de la tabla a la aplicación.
-
-                if (ctrl is DataGridView)
-                {
-                    /* La instancia "ctrl" cambia de la clase Control a la clase ComboBox para acceder 
-                     * a sus métodos característicos. */
-                    DataGridView dgv = (DataGridView)ctrl;
-                    DataTable tablaVirtual = new DataTable(); //Crea una tabla virtual para darle formato al objeto "datos".
-                    tablaVirtual.Load(datos); //Carga los datos en la tabla virtual.
-                    dgv.DataSource = tablaVirtual; //Rellena el DataGridView con el DataTable.
-                }
-
-                if (datos.HasRows) //Verifica si la tabla tiene filas en primer lugar.
-                {
-                    while (datos.Read()) //Mientras la tabla encuentre una nueva fila, recorrerla.
-                    {
-                        if (ctrl is ComboBox)
-                        {
-                            /* La instancia "ctrl" cambia de la clase Control a la clase ComboBox para acceder 
-                             * a sus métodos característicos. */
-                            ComboBox cmb = (ComboBox)ctrl;
-                            //De la fila actual, obtiene el valor de una columna concreta...
-                            string texto = datos.GetString("usuario");
-                            cmb.Items.Add(texto);
-                        }
-                    }
-                }
-
-                conexion.Close(); //Cierra conexión con el servidor.
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar el ComboBox: " + ex.Message);
-            }
-        }
+        }        
 
         /// <summary>
         /// UPDATE tabla SET columna=nuevoValor WHERE condicion. No se encontró la forma de hacer un UPDATE múltiple.
@@ -144,24 +70,6 @@ namespace TP_ComidaRapida
                 string consulta = $"UPDATE {tabla} SET {columna} = '{nuevoValor}'"; //UPDATE Usuario SET usuario='jvazquez630'
                 if (!string.IsNullOrEmpty(where)) //Si la variable "where" no es un espacio en blanco.
                     consulta += $" WHERE {where}"; //WHERE usuario='jcenturion630'
-                MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
-                comando.ExecuteNonQuery(); //Ejecuta la consulta.
-                conexion.Close(); //Cierra conexión con el servidor.
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al actualizar datos: " + ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// UPDATE tabla SET columna=nuevoValor WHERE condicion. Solo toma una columna a la vez.
-        /// </summary>
-        public void Consulta(string consulta)
-        {
-            try
-            {
-                conexion.Open(); //Abre conexión con el servidor.
                 MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
                 comando.ExecuteNonQuery(); //Ejecuta la consulta.
                 conexion.Close(); //Cierra conexión con el servidor.
@@ -190,6 +98,101 @@ namespace TP_ComidaRapida
             catch (Exception ex)
             {
                 MessageBox.Show("Error al borrar datos: " + ex.Message);
+            }
+        }
+
+        public void RellenarDGV(DataGridView dgv, string store_procedure)
+        {
+            try
+            {
+                conexion.Open(); //Abre conexión con el servidor.
+
+                string consulta = $"CALL {store_procedure}";
+                MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
+                MySqlDataReader datos = comando.ExecuteReader(); //Trae datos de la tabla a la aplicación.
+                DataTable tablaVirtual = new DataTable(); //Crea una tabla virtual para darle formato al objeto "datos".
+
+                tablaVirtual.Load(datos); //Carga los datos en la tabla virtual.
+                dgv.DataSource = tablaVirtual; //Rellena el DataGridView con el DataTable.
+
+                conexion.Close(); //Cierra conexión con el servidor.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el ComboBox: " + ex.Message);
+            }
+        }
+
+        public void RellenarDGV(DataGridView dgv, string columna, string tabla, string where)
+        {
+            try
+            {
+                conexion.Open(); //Abre conexión con el servidor.
+
+                string consulta = $"SELECT {columna} FROM {tabla}";
+                if (!string.IsNullOrEmpty(where)) //Si la variable "where" no es un espacio en blanco.
+                    consulta += $" WHERE {where}";
+
+                MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
+                MySqlDataReader datos = comando.ExecuteReader(); //Trae datos de la tabla a la aplicación en función de la consulta.
+                DataTable tablaVirtual = new DataTable(); //Crea una tabla virtual para darle formato al objeto "datos".
+
+                tablaVirtual.Load(datos); //Carga los datos en la tabla virtual.
+                dgv.DataSource = tablaVirtual; //Rellena el DataGridView con el DataTable.
+
+                conexion.Close(); //Cierra conexión con el servidor.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el ComboBox: " + ex.Message);
+            }
+        }
+
+        public void RellenarComboBox(ComboBox cmb, string columna, string tabla, string where)
+        {
+            try
+            {
+                conexion.Open(); //Abre conexión con el servidor.
+
+                string consulta = $"SELECT {columna} FROM {tabla}";
+                if (!string.IsNullOrEmpty(where)) //Si la variable "where" no es un espacio en blanco.
+                    consulta += $" WHERE {where}";
+
+                MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
+                MySqlDataReader datos = comando.ExecuteReader();
+
+                if (datos.HasRows) //Verifica si la tabla tiene filas en primer lugar.
+                {
+                    while (datos.Read()) //Mientras la tabla encuentre una nueva fila, recorrerla.
+                    {
+                        //De la fila actual, obtiene el valor de una columna concreta...
+                        string texto = datos.GetString("usuario");
+                        cmb.Items.Add(texto);
+                    }
+                }
+                else
+                    cmb.Items.Add("");
+
+                conexion.Close(); //Cierra conexión con el servidor.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el ComboBox: " + ex.Message);
+            }
+        }
+
+        public void Consulta(string consulta)
+        {
+            try
+            {
+                conexion.Open(); //Abre conexión con el servidor.
+                MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
+                comando.ExecuteNonQuery(); //Ejecuta la consulta.
+                conexion.Close(); //Cierra conexión con el servidor.
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar datos: " + ex.Message);
             }
         }
     }

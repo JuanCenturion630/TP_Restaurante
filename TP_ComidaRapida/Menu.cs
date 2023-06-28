@@ -18,7 +18,7 @@ namespace TP_ComidaRapida
             InitializeComponent();
             Controladores cs = new Controladores();
             cs.ActualizarControles(this);
-            this.FormClosing += cs.CerrarFormulario;
+            this.FormClosing += cs.CerrarForm_RegistrarCierreSesion;
             AsignarEventoKeyPress();
             RellenarVector();
             RellenarLabel();
