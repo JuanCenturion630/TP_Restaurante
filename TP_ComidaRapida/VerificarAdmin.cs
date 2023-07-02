@@ -47,7 +47,6 @@ namespace TP_ComidaRapida
                     ConexionSQL bd = new ConexionSQL();
                     resultado = bd.Select("administrador", "Usuario",
                         $"usuario='{txt_UserAdmin.Text}' AND pass='{txt_passwordAdmin.Text}'");
-                    MessageBox.Show(resultado.ToString());
                     admin = Convert.ToBoolean(resultado);
 
                     if (admin)
@@ -60,7 +59,7 @@ namespace TP_ComidaRapida
                     else
                         MessageBox.Show("El usuario no es administrador.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-            }
+            } //Si "resultado" es nulo es porque no se encontró coincidencias con el usuario y contraseña escritos.
             catch (NullReferenceException)
             {
                 MessageBox.Show("Usuario o contraseña incorrectos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

@@ -73,14 +73,14 @@
             // 
             // check_Empleado
             // 
-            this.check_Empleado.BackColor = System.Drawing.Color.Transparent;
-            this.check_Empleado.ForeColor = System.Drawing.Color.White;
+            this.rbtn_Empleado.BackColor = System.Drawing.Color.Transparent;
+            this.rbtn_Empleado.ForeColor = System.Drawing.Color.White;
             // 
             // check_Admin
             // 
-            this.check_Admin.BackColor = System.Drawing.Color.Transparent;
-            this.check_Admin.ForeColor = System.Drawing.Color.White;
-            this.check_Admin.UseVisualStyleBackColor = false;
+            this.rbtn_Admin.BackColor = System.Drawing.Color.Transparent;
+            this.rbtn_Admin.ForeColor = System.Drawing.Color.White;
+            this.rbtn_Admin.UseVisualStyleBackColor = false;
             // 
             // label8
             // 
@@ -144,8 +144,8 @@
             this.Controls.SetChildIndex(this.label8, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.label4, 0);
-            this.Controls.SetChildIndex(this.check_Empleado, 0);
-            this.Controls.SetChildIndex(this.check_Admin, 0);
+            this.Controls.SetChildIndex(this.rbtn_Empleado, 0);
+            this.Controls.SetChildIndex(this.rbtn_Admin, 0);
             this.Controls.SetChildIndex(this.cmb_Turnos, 0);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -53,10 +53,8 @@ namespace TP_ComidaRapida
 
         private void RecordarLogin(bool recordar)
         {
-            string estado = "0";
-            if (recordar) estado = "1";
             ConexionSQL bd = new ConexionSQL();
-            bd.Update("Usuario", "recordarSesion", $"{estado}", $"usuario='{cmb_usuario.Text}' AND borradoLogico=0");
+            bd.Consulta($"UPDATE Usuario SET recordarSesion={recordar} WHERE usuario='{cmb_usuario.Text}' AND borradoLogico=0");
         }
 
         private void CargarUsuariosRecordados()

@@ -41,8 +41,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btn_MostrarPassword = new System.Windows.Forms.Button();
             this.toolTip_infoControles = new System.Windows.Forms.ToolTip(this.components);
-            this.check_Empleado = new System.Windows.Forms.RadioButton();
-            this.check_Admin = new System.Windows.Forms.RadioButton();
+            this.rbtn_Empleado = new System.Windows.Forms.RadioButton();
+            this.rbtn_Admin = new System.Windows.Forms.RadioButton();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.btn_InicioSesion = new System.Windows.Forms.Button();
             this.txt_Usuario = new System.Windows.Forms.TextBox();
@@ -166,25 +166,25 @@
             // 
             // check_Empleado
             // 
-            this.check_Empleado.Location = new System.Drawing.Point(126, 186);
-            this.check_Empleado.Name = "check_Empleado";
-            this.check_Empleado.Size = new System.Drawing.Size(116, 24);
-            this.check_Empleado.TabIndex = 7;
-            this.check_Empleado.TabStop = true;
-            this.check_Empleado.Text = "Empleado";
-            this.check_Empleado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.check_Empleado.UseVisualStyleBackColor = false;
+            this.rbtn_Empleado.Location = new System.Drawing.Point(126, 186);
+            this.rbtn_Empleado.Name = "check_Empleado";
+            this.rbtn_Empleado.Size = new System.Drawing.Size(116, 24);
+            this.rbtn_Empleado.TabIndex = 7;
+            this.rbtn_Empleado.TabStop = true;
+            this.rbtn_Empleado.Text = "Empleado";
+            this.rbtn_Empleado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtn_Empleado.UseVisualStyleBackColor = false;
             // 
             // check_Admin
             // 
-            this.check_Admin.Location = new System.Drawing.Point(15, 186);
-            this.check_Admin.Name = "check_Admin";
-            this.check_Admin.Size = new System.Drawing.Size(104, 24);
-            this.check_Admin.TabIndex = 6;
-            this.check_Admin.TabStop = true;
-            this.check_Admin.Text = "Administrador";
-            this.check_Admin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.check_Admin.UseVisualStyleBackColor = true;
+            this.rbtn_Admin.Location = new System.Drawing.Point(15, 186);
+            this.rbtn_Admin.Name = "check_Admin";
+            this.rbtn_Admin.Size = new System.Drawing.Size(104, 24);
+            this.rbtn_Admin.TabIndex = 6;
+            this.rbtn_Admin.TabStop = true;
+            this.rbtn_Admin.Text = "Administrador";
+            this.rbtn_Admin.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtn_Admin.UseVisualStyleBackColor = true;
             // 
             // errorProvider
             // 
@@ -243,8 +243,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(260, 310);
             this.Controls.Add(this.cmb_Turnos);
-            this.Controls.Add(this.check_Admin);
-            this.Controls.Add(this.check_Empleado);
+            this.Controls.Add(this.rbtn_Admin);
+            this.Controls.Add(this.rbtn_Empleado);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label8);
@@ -282,8 +282,8 @@
         protected System.Windows.Forms.Label label4;
         protected System.Windows.Forms.Label label5;
         protected System.Windows.Forms.Button btn_MostrarPassword;
-        protected System.Windows.Forms.RadioButton check_Empleado;
-        protected System.Windows.Forms.RadioButton check_Admin;
+        protected System.Windows.Forms.RadioButton rbtn_Empleado;
+        protected System.Windows.Forms.RadioButton rbtn_Admin;
         protected System.Windows.Forms.Label label8;
         protected System.Windows.Forms.TextBox txt_Usuario;
         protected System.Windows.Forms.ComboBox cmb_Turnos;

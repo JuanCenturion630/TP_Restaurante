@@ -19,7 +19,7 @@ namespace TP_ComidaRapida
             
             dtp_fechaNacimiento.MaxDate = DateTime.Now.AddYears(-18).AddDays(-1);
             cmb_Turnos.SelectedIndex = 0;
-            check_Empleado.Select();
+            rbtn_Empleado.Select();
 
             Eventos ev = new Eventos();
             ev.ActualizarControles(this);
@@ -81,7 +81,7 @@ namespace TP_ComidaRapida
                      * así que se volteará a "2023/6/10" usando una sobrecarga del método ToString(). */
                     string fechaVolteada = dtp_fechaNacimiento.Value.Date.ToString("yyyy/M/d");
 
-                    if (check_Empleado.Checked)
+                    if (rbtn_Empleado.Checked)
                     {
                         if (cmb_Turnos.SelectedIndex == 0)
                             InsertarUsuario(0, nombre, apellido, usuario, txt_Password.Text, fechaVolteada, edadCalc, 
@@ -108,7 +108,7 @@ namespace TP_ComidaRapida
                         {
                             /* Si se elige "administrador" debe aparecer un botón notificando que primero es necesario
                              * ingresar con una cuenta de adminitrador para crear otro, abrir un Form (CrearAdministrador). */
-                            if (check_Admin.Checked && MessageBox.Show("Para crear un nuevo administrador debe ser uno.",
+                            if (rbtn_Admin.Checked && MessageBox.Show("Para crear un nuevo administrador debe ser uno.",
                                     "¿Iniciar sesión?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
                                 VerificarAdmin admin = new VerificarAdmin();
@@ -177,7 +177,7 @@ namespace TP_ComidaRapida
             //Fecha máxima del calendario: la fecha actual menos 18 años y un día, descartando a menores de edad.
             dtp_fechaNacimiento.MaxDate = DateTime.Now.AddYears(-18).AddDays(-1);
             cmb_Turnos.SelectedIndex = 0;
-            check_Empleado.Select();
+            rbtn_Empleado.Select();
         }
     }
 }

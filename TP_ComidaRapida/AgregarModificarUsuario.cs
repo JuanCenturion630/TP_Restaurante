@@ -64,12 +64,12 @@ namespace TP_ComidaRapida
 
         public void SetCheckedCheckAdmin(bool estado)
         {
-            check_Admin.Checked = estado;
+            rbtn_Admin.Checked = estado;
         }
 
         public void SetCheckedCheckEmpleado(bool estado)
         {
-            check_Empleado.Checked = estado;
+            rbtn_Empleado.Checked = estado;
         }
         #endregion
 
@@ -119,13 +119,7 @@ namespace TP_ComidaRapida
             if (!va.TextoEnBlanco(this) && !va.RepetidoEnBaseDeDatos("usuario", "Usuario", txt_Usuario, usuarioTruncado))
             {
                 double edadCalc = CalcularEdad();
-                bool adminCheck;
                 string ingreso, egreso, fechaVolteada = dtp_fechaNacimiento.Value.Date.ToString("yyyy/MM/dd");
-
-                if (check_Admin.Checked)
-                    adminCheck = true;
-                else
-                    adminCheck = false;
 
                 if (cmb_Turnos.SelectedIndex == 0)
                 {
@@ -139,7 +133,7 @@ namespace TP_ComidaRapida
                 }
 
                 //Se intentó hacer una única llamada a bd.Update, pero no se pudo. Pendiente de edición.
-                bd.Consulta($"UPDATE Usuario SET administrador={adminCheck} WHERE usuario='{usuarioTruncado}'");
+                bd.Consulta($"UPDATE Usuario SET administrador={rbtn_Admin.Checked} WHERE usuario='{usuarioTruncado}'");
                 bd.Consulta($"UPDATE Usuario SET nombre='{txt_Nombre.Text}' WHERE usuario='{usuarioTruncado}'");
                 bd.Consulta($"UPDATE Usuario SET apellido='{txt_Apellido.Text}' WHERE usuario='{usuarioTruncado}'");
                 bd.Consulta($"UPDATE Usuario SET usuario='{txt_Usuario.Text}' WHERE usuario='{usuarioTruncado}'");
@@ -149,7 +143,7 @@ namespace TP_ComidaRapida
                 bd.Consulta($"UPDATE Usuario SET horaIngreso='{ingreso}' WHERE usuario='{usuarioTruncado}'");
                 bd.Consulta($"UPDATE Usuario SET horaSalida='{egreso}' WHERE usuario='{usuarioTruncado}'");
 
-                MessageBox.Show("Datos actualizados con éxito.");
+                MessageBox.Show("Usuario actualizado con éxito.");
                 this.Hide();
             }
         }
@@ -158,7 +152,7 @@ namespace TP_ComidaRapida
         protected new void btn_Registrarse_Click(object sender, EventArgs e)
         {
             base.btn_Registrarse_Click(btn_Agregar, e);
-            if (check_Admin.Checked && btnEjecucionExitosa)
+            if (rbtn_Admin.Checked && btnEjecucionExitosa)
                 MessageBox.Show("Usuario creado con éxito.");
             if (btnEjecucionExitosa)
                 this.Hide();
@@ -166,7 +160,7 @@ namespace TP_ComidaRapida
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            //Se deja en blanco para sobreescribir el FormClosing con nada, logrando que el Form se cierre sin pedir confirmación.
+            //Se deja en blanco para sobreescribir el FormClosing heredado con nada, así el Form se cierre sin pedir confirmación.
         }
     }
 }

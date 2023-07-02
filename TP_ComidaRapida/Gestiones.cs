@@ -42,11 +42,12 @@ namespace TP_ComidaRapida
                     }
                 }
                 if (!encontrado)
-                    MessageBox.Show($"'{txt_Buscador.Text}' no encontrado.");
+                    MessageBox.Show($"'{txt_Buscador.Text}' no encontrado.", "Advertencia", MessageBoxButtons.OK, 
+                        MessageBoxIcon.Exclamation);
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -70,8 +71,10 @@ namespace TP_ComidaRapida
                             amu.SetVisibleBtnModificar(false);
                             amu.SetAcceptButtonBtnAgregar();
                             amu.Text = "Agregar Usuario";
+
                             Registrarse registrarse = new Registrarse();
                             registrarse.SetEsAdmin(true);
+
                             amu.ShowDialog();
                             break;
                         case 1:
@@ -82,17 +85,19 @@ namespace TP_ComidaRapida
                             amc.ShowDialog();
                             break;
                         case 2:
-                            MessageBox.Show("No puede agregar tickets.");
+                            MessageBox.Show("No puede agregar tickets.", "Advertencia", MessageBoxButtons.OK, 
+                                MessageBoxIcon.Information);
                             break;
                         case 3:
-                            MessageBox.Show("No puede agregar sesiones.");
+                            MessageBox.Show("No puede agregar sesiones.", "Advertencia", MessageBoxButtons.OK, 
+                                MessageBoxIcon.Information);
                             break;
                     }
                 }
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -119,9 +124,9 @@ namespace TP_ComidaRapida
                             Registrarse registrarse = new Registrarse();
                             registrarse.SetEsAdmin(true);
 
-                            //Se escriben los TextBox usando setters.
                             DataGridViewRow filaUsuario = dgv_Tablas.SelectedRows[0];
 
+                            //Se escriben los Controles de AgregarModificarUsuario usando setters.
                             if ((bool)filaUsuario.Cells[0].Value)
                                 amu.SetCheckedCheckAdmin(true);
                             else
@@ -139,6 +144,7 @@ namespace TP_ComidaRapida
                                 amu.SetSelectedIndexCmbTurnos(0);
                             else
                                 amu.SetSelectedIndexCmbTurnos(1);
+
                             amu.ShowDialog();
                             break;
                         case 1:
@@ -148,7 +154,7 @@ namespace TP_ComidaRapida
                             amc.SetAcceptButtonBtnModificar();
                             amc.Text = "Modificar Comida";
 
-                            //Se escriben los TextBox.
+                            //Se escriben los TextBox usando setters.
                             DataGridViewRow filacomida = dgv_Tablas.SelectedRows[0];
                             amc.SetTextTxtComida(filacomida.Cells[0].Value.ToString());
                             amc.SetComidaTruncada(filacomida.Cells[0].Value.ToString());
@@ -156,17 +162,19 @@ namespace TP_ComidaRapida
                             amc.ShowDialog();
                             break;
                         case 2:
-                            MessageBox.Show("No puede modificar los tickets.");
+                            MessageBox.Show("No puede modificar los tickets.", "Advertencia", MessageBoxButtons.OK, 
+                                MessageBoxIcon.Information);
                             break;
                         case 3:
-                            MessageBox.Show("No puede modificar el registro de sesiones.");
+                            MessageBox.Show("No puede modificar el registro de sesiones.", "Advertencia", MessageBoxButtons.OK, 
+                                MessageBoxIcon.Information);
                             break;
                     }
                 }
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -176,15 +184,14 @@ namespace TP_ComidaRapida
             {
                 ConexionSQL bd = new ConexionSQL();
                 if (dgv_Tablas.SelectedCells.Count == 0) //Si las celdas seleccionadas son 0.
-                {
                     MessageBox.Show("Seleccione una fila.");
-                }
                 else
                 {
                     //Aunque el borrado lógico de Comida esta programado, no lo ejecutaremos porque la aplicación necesita 
                     //obligatoriamente 12 comidas estáticas.
                     if (cmb_tablas.SelectedIndex >= 1)
-                        MessageBox.Show("No se puede eliminar este registro.");
+                        MessageBox.Show("No se puede eliminar este registro.", "Advertencia", MessageBoxButtons.OK, 
+                            MessageBoxIcon.Information);
                     else
                     {
                         sePresionoEliminar = true;
@@ -214,7 +221,7 @@ namespace TP_ComidaRapida
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -252,7 +259,7 @@ namespace TP_ComidaRapida
                     case 1:
                         btn_Imprimir.Enabled = false;
                         RefrescarDGV(dgv_Tablas, "comida");
-                        this.Text = "Gestionar Comida";
+                        this.Text = "Gestionar Comidas";
                         break;
                     case 2:
                         btn_Imprimir.Enabled = true;
@@ -269,7 +276,7 @@ namespace TP_ComidaRapida
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -279,16 +286,10 @@ namespace TP_ComidaRapida
             switch (opcion)
             {
                 case "usuario":
-                    bd.RellenarDGV(dgv,
-                        "administrador AS Admin,nombre AS Nombre,apellido AS Apellido,usuario AS Usuario,pass AS Password,fechaNacimiento AS Nacimiento,edad AS Edad,horaIngreso AS Ingreso,horaSalida AS Egreso",
-                        "Usuario",
-                        "borradoLogico=0");
+                    bd.RellenarDGV(dgv, "Mostrar_Usuarios()");
                     break;
                 case "comida":
-                    bd.RellenarDGV(dgv, 
-                        "nombre AS Comida,precio AS Precio", 
-                        "Comida",
-                        "borradoLogico=0");
+                    bd.RellenarDGV(dgv, "Mostrar_Comidas()");
                     break;
                 case "ticket":
                     bd.RellenarDGV(dgv, "Crear_Ticket()");

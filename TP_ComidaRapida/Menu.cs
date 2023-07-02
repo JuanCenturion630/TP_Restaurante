@@ -35,10 +35,18 @@ namespace TP_ComidaRapida
 
         void AsignarEventoKeyPress()
         {
-            Eventos ev = new Eventos();
-            foreach (GroupBox gbox in Controls.OfType<GroupBox>())
-                foreach (TextBox txt in gbox.Controls.OfType<TextBox>())
-                    txt.KeyPress += (sender, e) => ev.KeyPress_SoloNumeros_LimitarCantDeDigitos(sender, e, 1);
+            try
+            {
+                Eventos ev = new Eventos();
+                foreach (GroupBox gbox in Controls.OfType<GroupBox>())
+                    foreach (TextBox txt in gbox.Controls.OfType<TextBox>())
+                        txt.KeyPress += (sender, e) => ev.KeyPress_SoloNumeros_LimitarCantDeDigitos(sender, e, 1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al suscribir los Controles al evento KeyPress: " + ex.Message, "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         void RellenarTextBox(int cant)
@@ -52,27 +60,48 @@ namespace TP_ComidaRapida
         {
             ConexionSQL bd = new ConexionSQL();
             int c = 0;
+            decimal precio;
 
-            //Para cada GroupBox dentro del Form (4):
-            foreach (GroupBox gbox in Controls.OfType<GroupBox>())
+            try
             {
-                //Para cada TextBox dentro del cada GroupBox (3):
-                foreach (Label lbl in gbox.Controls.OfType<Label>())
+                foreach (GroupBox gbox in Controls.OfType<GroupBox>())
                 {
-                    c++;
-                    decimal precio = (decimal)bd.Select("precio", "Comida", $"id='{c}'");
-                    lbl.Text = "$ " + precio.ToString("N");
+                    foreach (Label lbl in gbox.Controls.OfType<Label>())
+                    {
+                        c++;
+                        precio = (decimal)bd.Select("precio", "Comida", $"id='{c}'");
+                        lbl.Text = "$ " + precio.ToString("N");
+                    }
                 }
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("No se encontró precio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         void RellenarVector()
         {
-            ConexionSQL bd = new ConexionSQL();
-            for(int i = 0; i < 12; i++)
+            try
             {
-                comida[i] = (string)bd.Select("nombre", "Comida", $"id='{i + 1}'");
-                precio[i] = (decimal)bd.Select("precio", "Comida", $"id='{i + 1}'");
+                ConexionSQL bd = new ConexionSQL();
+                for (int i = 0; i < 12; i++)
+                {
+                    comida[i] = (string)bd.Select("nombre", "Comida", $"id='{i + 1}'");
+                    precio[i] = (decimal)bd.Select("precio", "Comida", $"id='{i + 1}'");
+                }
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Referencia nula.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -107,7 +136,7 @@ namespace TP_ComidaRapida
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -212,7 +241,7 @@ namespace TP_ComidaRapida
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al generar el ticket de factura: " + ex.Message);
+                Console.WriteLine("Error generando ticket: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             #endregion
         }
