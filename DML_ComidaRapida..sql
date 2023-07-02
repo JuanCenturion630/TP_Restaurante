@@ -52,8 +52,9 @@ CALL Crear_Ticket();
 DELIMITER //
 CREATE PROCEDURE Mostrar_Usuarios()
 BEGIN
-	SELECT administrador AS Admin, nombre AS Nombre, apellido AS Apellido, usuario AS Usuario, pass AS Password,
-			fechaNacimiento AS Nacimiento, edad AS Edad, horaIngreso AS Ingreso, horaSalida AS Egreso
+	SELECT 
+		administrador AS Admin, nombre AS Nombre, apellido AS Apellido, usuario AS Usuario, pass AS Password, fechaNacimiento AS Nacimiento, 
+		edad AS Edad, horaIngreso AS Ingreso, horaSalida AS Egreso
 	FROM Usuario
 	WHERE borradoLogico=0;
 END //
