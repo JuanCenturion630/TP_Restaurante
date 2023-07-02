@@ -15,9 +15,10 @@ namespace TP_ComidaRapida
         public Gestiones()
         {
             InitializeComponent();
-            Controladores cs = new Controladores();
-            cs.ActualizarControles(this);
-            this.FormClosing += cs.CerrarForm_RegistrarCierreSesion;
+
+            Eventos ev = new Eventos();
+            ev.ActualizarControles(this);
+            this.FormClosing += ev.FormClosing_RegistrarCierreSesion;
             txt_Buscador.TabIndex = 0;
         }
 
@@ -48,6 +49,8 @@ namespace TP_ComidaRapida
                 MessageBox.Show(ex.Message);
             }
         }
+
+        bool sePresionoEliminar = false;
 
         private void btn_Agregar_Click(object sender, EventArgs e)
         {
@@ -166,8 +169,6 @@ namespace TP_ComidaRapida
                 MessageBox.Show(ex.Message);
             }
         }
-
-        bool sePresionoEliminar = false;
 
         private void btn_Eliminar_Click(object sender, EventArgs e)
         {

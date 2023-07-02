@@ -16,18 +16,19 @@ namespace TP_ComidaRapida
         public Registrarse()
         {
             InitializeComponent();
-            Controladores cs = new Controladores();
-            cs.ActualizarControles(this);
+            
             dtp_fechaNacimiento.MaxDate = DateTime.Now.AddYears(-18).AddDays(-1);
             cmb_Turnos.SelectedIndex = 0;
             check_Empleado.Select();
 
-            txt_Nombre.KeyPress += (sender, e) => cs.SoloTextoMenorA(sender, e, 24);
-            txt_Apellido.KeyPress += (sender, e) => cs.SoloTextoMenorA(sender, e, 24);
-            txt_Usuario.KeyPress += (sender, e) => cs.AlfanumericoMenorA(sender, e, 24);
-            txt_Password.KeyPress += (sender, e) => cs.AlfanumericoMenorA(sender, e, 15);
-
-            btn_MostrarPassword.Click += (sender, e) => cs.MostrarOcultarPassword(sender, e, txt_Password);
+            Eventos ev = new Eventos();
+            ev.ActualizarControles(this);
+            txt_Nombre.KeyPress += (sender, e) => ev.KeyPress_SoloTextoMenorA(sender, e, 24);
+            txt_Apellido.KeyPress += (sender, e) => ev.KeyPress_SoloTextoMenorA(sender, e, 24);
+            txt_Usuario.KeyPress += (sender, e) => ev.KeyPress_AlfanumericoMenorA(sender, e, 24);
+            txt_Password.KeyPress += (sender, e) => ev.KeyPress_AlfanumericoMenorA(sender, e, 15);
+            btn_MostrarPassword.Click += (sender, e) => ev.Click_MostrarOcultarPassword(sender, e, txt_Password);
+            this.FormClosing += ev.FormClosing;
         }
 
         protected bool btnEjecucionExitosa = false;
@@ -65,15 +66,15 @@ namespace TP_ComidaRapida
 
         protected void btn_Registrarse_Click(object sender, EventArgs e)
         {
-            Controladores cs = new Controladores();
+            Validaciones va = new Validaciones();
             double edadCalc;
             try
             {
-                if (!cs.TextoEnBlanco(this) && !cs.RepetidoEnBaseDeDatos("usuario", "Usuario", txt_Usuario))
+                if (!va.TextoEnBlanco(this) && !va.RepetidoEnBaseDeDatos("usuario", "Usuario", txt_Usuario))
                 {
-                    string nombre = cs.DarFormato(txt_Nombre, "ToTitleCase");
-                    string apellido = cs.DarFormato(txt_Apellido, "ToTitleCase");
-                    string usuario = cs.DarFormato(txt_Usuario, "ToLower");
+                    string nombre = va.DarFormato(txt_Nombre, "ToTitleCase");
+                    string apellido = va.DarFormato(txt_Apellido, "ToTitleCase");
+                    string usuario = va.DarFormato(txt_Usuario, "ToLower");
                     edadCalc = CalcularEdad();
 
                     /* dtp_fechaNacimiento devuelve un valor "10/6/2023" que no sirve para insertarlo en la BD
@@ -166,18 +167,6 @@ namespace TP_ComidaRapida
                 //Llama al evento Registrarse_Click sin hacer clic en ningún botón.
                 btn_Registrarse_Click(btn_Registrarse, EventArgs.Empty);
             }
-        }
-
-        protected virtual void Registrarse_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //El evento se produce al intentar cerrar el formulario.
-            if (MessageBox.Show("¿Desea cerrar la aplicación?", "Aviso",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                Application.ExitThread();
-            }
-            else
-                e.Cancel = true; //Se cancela el evento, el formulario no se cierra.
         }
 
         protected void Limpiar()

@@ -15,8 +15,9 @@ namespace TP_ComidaRapida
         public AgregarModificarUsuario()
         {
             InitializeComponent();
-            Controladores cs = new Controladores();
-            cs.ActualizarControles(this);
+
+            Eventos ev = new Eventos();
+            ev.ActualizarControles(this);
         }
 
         string usuarioTruncado;
@@ -114,13 +115,12 @@ namespace TP_ComidaRapida
         private void btn_Modificar_Click(object sender, EventArgs e)
         {
             ConexionSQL bd = new ConexionSQL();
-            Controladores cs = new Controladores();
-            if (!cs.TextoEnBlanco(this) && !cs.RepetidoEnBaseDeDatos("usuario", "Usuario", txt_Usuario, usuarioTruncado))
+            Validaciones va = new Validaciones();
+            if (!va.TextoEnBlanco(this) && !va.RepetidoEnBaseDeDatos("usuario", "Usuario", txt_Usuario, usuarioTruncado))
             {
                 double edadCalc = CalcularEdad();
                 bool adminCheck;
-                string ingreso, egreso;
-                string fechaVolteada = dtp_fechaNacimiento.Value.Date.ToString("yyyy/MM/dd");
+                string ingreso, egreso, fechaVolteada = dtp_fechaNacimiento.Value.Date.ToString("yyyy/MM/dd");
 
                 if (check_Admin.Checked)
                     adminCheck = true;
@@ -164,9 +164,9 @@ namespace TP_ComidaRapida
                 this.Hide();
         }
 
-        protected override void Registrarse_FormClosing(object sender, FormClosingEventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            //Sobreescribo el método para que no haga nada. Evita el mensaje exigiendo confirmación de cierre, ya no es necesario.
+            //Se deja en blanco para sobreescribir el FormClosing con nada, logrando que el Form se cierre sin pedir confirmación.
         }
     }
 }

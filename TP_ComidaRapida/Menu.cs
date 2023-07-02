@@ -16,10 +16,12 @@ namespace TP_ComidaRapida
         public Menu()
         {
             InitializeComponent();
-            Controladores cs = new Controladores();
-            cs.ActualizarControles(this);
-            this.FormClosing += cs.CerrarForm_RegistrarCierreSesion;
+
+            Eventos ev = new Eventos();
+            ev.ActualizarControles(this);
+            this.FormClosing += ev.FormClosing_RegistrarCierreSesion;
             AsignarEventoKeyPress();
+
             RellenarVector();
             RellenarLabel();
             RellenarTextBox(0);
@@ -33,17 +35,10 @@ namespace TP_ComidaRapida
 
         void AsignarEventoKeyPress()
         {
-            Controladores cs = new Controladores();
-
-            //Para cada GroupBox dentro del Form (4):
+            Eventos ev = new Eventos();
             foreach (GroupBox gbox in Controls.OfType<GroupBox>())
-            {
-                //Para cada TextBox dentro del cada GroupBox (3):
                 foreach (TextBox txt in gbox.Controls.OfType<TextBox>())
-                {
-                    txt.KeyPress += (sender, e) => cs.SoloNumeros_LimitarCantDeDigitos(sender, e, 1);
-                }
-            }
+                    txt.KeyPress += (sender, e) => ev.KeyPress_SoloNumeros_LimitarCantDeDigitos(sender, e, 1);
         }
 
         void RellenarTextBox(int cant)

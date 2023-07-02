@@ -16,25 +16,9 @@ namespace TP_ComidaRapida
         public Ticket()
         {
             InitializeComponent();
-            Controladores cs = new Controladores();
-            cs.ActualizarControles(this);
-        }
 
-        private void Ticket_Load(object sender, EventArgs e)
-        {
-            //PROGRAMACIÓN PENDIENTE...
-            string ruta = "C:\\Users\\Public\\GrupoX_ticket_20230625_031549..txt";
-
-            try
-            {
-                //Leer el contenido del documento.
-                string contenido = File.ReadAllText(ruta);
-                txt_Ticket.Text = contenido;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar el ticket: " + ex.Message);
-            }
+            Eventos ev = new Eventos();
+            ev.ActualizarControles(this);
         }
     }
 }

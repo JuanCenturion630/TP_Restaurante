@@ -62,3 +62,17 @@ C:\Users\Juan\Desktop\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.
 C:\Users\Juan\Desktop\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Gestiones.resources
 C:\Users\Juan\Desktop\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.AgregarModificarComida.resources
 C:\Users\Juan\Desktop\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Ticket.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\bin\Debug\TP_ComidaRapida.exe.config
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.exe
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.pdb
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.csprojResolveAssemblyReference.cache
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.AgregarModificarComida.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.AgregarModificarUsuario.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Ticket.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.VerificarAdmin.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Gestiones.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Login.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Menu.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Properties.Resources.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.Registrarse.resources
+C:\Users\Juan\Desktop\IFTS Nº11\1.2. Programación\TP_ComidaRapida\TP_ComidaRapida\obj\Debug\TP_ComidaRapida.csproj.GenerateResource.Cache

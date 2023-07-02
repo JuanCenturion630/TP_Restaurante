@@ -15,9 +15,10 @@ namespace TP_ComidaRapida
         public VerificarAdmin()
         {
             InitializeComponent();
-            Controladores cs = new Controladores();
-            cs.ActualizarControles(this);
-            btn_MostrarPassword.Click += (sender, e) => cs.MostrarOcultarPassword(sender, e, txt_passwordAdmin);
+
+            Eventos ev = new Eventos();
+            ev.ActualizarControles(this);
+            btn_MostrarPassword.Click += (sender, e) => ev.Click_MostrarOcultarPassword(sender, e, txt_passwordAdmin);
         }
 
         static bool finCrearAdminConExito = false;
@@ -34,36 +35,39 @@ namespace TP_ComidaRapida
 
         private void btn_Ingresar_Click(object sender, EventArgs e)
         {
-            Controladores cs = new Controladores();
+            Validaciones va = new Validaciones();
+            object resultado = null;
+            bool admin = false;
+
             try
             {
-                if (!cs.TextoEnBlanco(this))
+                if (!va.TextoEnBlanco(this))
                 {
                     //Verificar los datos en la base de datos.
                     ConexionSQL bd = new ConexionSQL();
-                    object resultado = bd.Select("administrador", "Usuario",
+                    resultado = bd.Select("administrador", "Usuario",
                         $"usuario='{txt_UserAdmin.Text}' AND pass='{txt_passwordAdmin.Text}'");
+                    MessageBox.Show(resultado.ToString());
+                    admin = Convert.ToBoolean(resultado);
 
-                    if (resultado == null)
-                        MessageBox.Show("Usuario o contraseña incorrectos.");
-                    else
+                    if (admin)
                     {
-                        bool admin = Convert.ToBoolean(resultado);
-                        if (admin)
-                        {
-                            finCrearAdminConExito = true; //Certifica que se valídó un administrador antiguo.
-                            //"Datos cargados con éxito" se refiere a los datos del formulario "Registrarse".
-                            if (MessageBox.Show("Datos cargados con éxito", "Aviso", MessageBoxButtons.OK) == DialogResult.OK)
-                                this.Close(); //Cierra este Form.
-                        }
-                        else
-                            MessageBox.Show("El usuario no es administrador. Intente con otro.");
+                        finCrearAdminConExito = true; //Certifica que se valídó un administrador antiguo.
+                        //"Datos cargados con éxito" se refiere a los datos del formulario "Registrarse".
+                        if (MessageBox.Show("Datos cargados con éxito", "Aviso", MessageBoxButtons.OK) == DialogResult.OK)
+                            this.Close(); //Cierra este Form.
                     }
+                    else
+                        MessageBox.Show("El usuario no es administrador.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
-            catch(Exception ex)
+            catch (NullReferenceException)
             {
-                MessageBox.Show("Ocurrió un error: " + ex.Message);
+                MessageBox.Show("Usuario o contraseña incorrectos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

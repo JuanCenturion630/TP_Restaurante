@@ -16,10 +16,11 @@ namespace TP_ComidaRapida
         public AgregarModificarComida()
         {
             InitializeComponent();
-            Controladores cs = new Controladores();
-            cs.ActualizarControles(this);
-            txt_Comida.KeyPress += (sender, e) => cs.SoloTextoMenorA(sender, e, 39);
-            txt_Precio.KeyPress += (sender, e) => cs.SoloNumerosConComa_LimitarCantDeDigitos(sender, e, 7);
+
+            Eventos ev = new Eventos();
+            ev.ActualizarControles(this);
+            txt_Comida.KeyPress += (sender, e) => ev.KeyPress_SoloTextoMenorA(sender, e, 39);
+            txt_Precio.KeyPress += (sender, e) => ev.KeyPress_SoloNumerosConComa_LimitarCantDeDigitos(sender, e, 7);
         }
 
         string comidaTruncada;
@@ -68,11 +69,11 @@ namespace TP_ComidaRapida
         private void btn_Agregar_Click(object sender, EventArgs e)
         {
             ConexionSQL bd = new ConexionSQL();
-            Controladores cs = new Controladores();
+            Validaciones va = new Validaciones();
 
-            if (!cs.TextoEnBlanco(this) && !cs.RepetidoEnBaseDeDatos("nombre", "Comida", txt_Comida))
+            if (!va.TextoEnBlanco(this) && !va.RepetidoEnBaseDeDatos("nombre", "Comida", txt_Comida))
             {
-                string plato = cs.DarFormato(txt_Comida, "ToTitleCase");
+                string plato = va.DarFormato(txt_Comida, "ToTitleCase");
                 bd.InsertInto("Comida", "nombre,precio,borradoLogico", $"'{plato}','{txt_Precio.Text}','0'");
                 MessageBox.Show("Plato creado con éxito.");
                 this.Hide();
@@ -82,11 +83,11 @@ namespace TP_ComidaRapida
         private void btn_Modificar_Click(object sender, EventArgs e)
         {
             ConexionSQL bd = new ConexionSQL();
-            Controladores cs = new Controladores();
+            Validaciones va = new Validaciones();
 
-            if (!cs.TextoEnBlanco(this) && !cs.RepetidoEnBaseDeDatos("nombre", "Comida", txt_Comida, comidaTruncada))
+            if (!va.TextoEnBlanco(this) && !va.RepetidoEnBaseDeDatos("nombre", "Comida", txt_Comida, comidaTruncada))
             {
-                string plato = cs.DarFormato(txt_Comida, "ToTitleCase");
+                string plato = va.DarFormato(txt_Comida, "ToTitleCase");
                 bd.Consulta($"UPDATE Comida SET nombre='{plato}' WHERE nombre='{comidaTruncada}'");
                 bd.Consulta($"UPDATE Comida SET precio='{txt_Precio.Text}' WHERE nombre='{comidaTruncada}'");
                 MessageBox.Show("Plato actualizado con éxito.");

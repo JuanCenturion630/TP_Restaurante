@@ -11,11 +11,8 @@ using System.Windows.Forms;
 
 namespace TP_ComidaRapida
 {
-    public class Controladores
+    public class Eventos
     {
-        /// <summary>
-        /// Da formato al Form y sus controles. Color, fondo y otros efectos visuales.
-        /// </summary>
         public void ActualizarControles(Form formulario)
         {
             try
@@ -34,17 +31,15 @@ namespace TP_ComidaRapida
                 //Para cada Control de un Form individual:
                 foreach (Control ctrl in formulario.Controls)
                 {
-                    //Si el Control es un ComboBox...
                     if (ctrl is ComboBox)
                     {
                         /* El Control activo pasa de clase Control a clase ComboBox para acceder 
                          * a sus métodos característicos: */
                         ComboBox cmb = (ComboBox)ctrl;
-                        cmb.DropDownStyle = ComboBoxStyle.DropDownList; //Evita que se pueda escribir en el ComboBox.
+                        cmb.DropDownStyle = ComboBoxStyle.DropDownList;
                         cmb.SelectedIndex = 0;
                     }
 
-                    //Si el Control es un botón...
                     if (ctrl is Button)
                     {
                         /* El Control activo pasa de clase Control a clase Button para acceder 
@@ -56,14 +51,12 @@ namespace TP_ComidaRapida
                         btn.FlatAppearance.MouseOverBackColor = Color.Red;
                     }
 
-                    //Si el Control es un Label O un RadioButton O un Button...
                     if (ctrl is Label || ctrl is RadioButton || ctrl is Button)
                     {
                         ctrl.ForeColor = Color.White; //Cambia el color de las letras del Control.
                         ctrl.BackColor = Color.Transparent; //Cambia el color del fondo del Control.
                     }
 
-                    //Si el Control es un DataGridView...
                     if (ctrl is DataGridView)
                     {
                         /* El Control activo pasa de clase Control a clase Button para acceder 
@@ -91,69 +84,7 @@ namespace TP_ComidaRapida
             }
         }
 
-        /// <summary>
-        /// Da formato a la cadena de texto.
-        /// </summary>
-        /// <param name="txt">Nombre del TextBox.</param>
-        /// <param name="tipoFormato">"ToTitleCase" para poner la primera letra en mayúsculas/"ToLower" para poner todo en minúsculas.</param>
-        /// <returns></returns>
-        public string DarFormato(TextBox txt, string tipoFormato)
-        {
-            string textoFormateado = "";
-            switch (tipoFormato)
-            {
-                case "ToTitleCase":
-                    TextInfo formato = CultureInfo.CurrentCulture.TextInfo;
-                    textoFormateado = formato.ToTitleCase(txt.Text.ToLower()); //Ej.: "jUAn paBLO" = "Juan Pablo"
-                    break;
-                case "ToLower":
-                    textoFormateado = txt.Text.ToLower();
-                    break;
-            }
-            return textoFormateado;
-        }
-
-        public bool TextoEnBlanco(Form formulario)
-        {
-            foreach (TextBox txt in formulario.Controls.OfType<TextBox>())
-            {
-                if (string.IsNullOrWhiteSpace(txt.Text))
-                {
-                    MessageBox.Show("Rellene todos los campos.");
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public bool RepetidoEnBaseDeDatos(string columna, string tabla, TextBox txt)
-        {
-            ConexionSQL bd = new ConexionSQL();
-            object repetido = bd.Select($"{columna}", $"{tabla}", $"{columna}='{txt.Text}' AND borradoLogico=0");
-            if (repetido != null) //Si la consulta NO da NULL, encontró un usuario repetido.
-            {
-                MessageBox.Show("El nombre del elemento ya esta en uso.");
-                return true;
-            }
-            return false;
-        }
-
-        public bool RepetidoEnBaseDeDatos(string columna, string tabla, TextBox txt, string excepto)
-        {
-            ConexionSQL bd = new ConexionSQL();
-            if (excepto != txt.Text)
-            {
-                object repetido = bd.Select($"{columna}", $"{tabla}", $"{columna}='{txt.Text}' AND borradoLogico=0");
-                if (repetido != null) //Si la consulta NO da NULL, encontró un usuario repetido.
-                {
-                    MessageBox.Show("El nombre del elemento ya esta en uso.");
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public void SoloNumeros_LimitarCantDeDigitos(object sender, KeyPressEventArgs e, int maximo)
+        public void KeyPress_SoloNumeros_LimitarCantDeDigitos(object sender, KeyPressEventArgs e, int maximo)
         {
             /* El objecto sender representa al Control que activó el evento y se convierte a la clase TextBox
              * para poder acceder a sus métodos */
@@ -162,7 +93,7 @@ namespace TP_ComidaRapida
                 e.Handled = true; //Cancela la tecla presionada.
         }
 
-        public void SoloNumerosConComa_LimitarCantDeDigitos(object sender, KeyPressEventArgs e, int maximo)
+        public void KeyPress_SoloNumerosConComa_LimitarCantDeDigitos(object sender, KeyPressEventArgs e, int maximo)
         {
             /* El objecto sender representa al Control que activó el evento y se convierte a la clase TextBox
              * para poder acceder a sus métodos */
@@ -171,7 +102,7 @@ namespace TP_ComidaRapida
                 e.Handled = true; //Cancela la tecla presionada.
         }
 
-        public void SoloTextoMenorA(object sender, KeyPressEventArgs e, int maximo)
+        public void KeyPress_SoloTextoMenorA(object sender, KeyPressEventArgs e, int maximo)
         {
             /* El objecto sender representa al Control que activó el evento y se convierte a la clase TextBox
              * para poder acceder a sus métodos */
@@ -180,7 +111,7 @@ namespace TP_ComidaRapida
                 e.Handled = true; //Cancela la tecla presionada.
         }
 
-        public void AlfanumericoMenorA(object sender, KeyPressEventArgs e, int maximo)
+        public void KeyPress_AlfanumericoMenorA(object sender, KeyPressEventArgs e, int maximo)
         {
             Control ctrl = (Control)sender;
 
@@ -199,7 +130,16 @@ namespace TP_ComidaRapida
             }
         }
 
-        public void CerrarForm_RegistrarCierreSesion(object sender, FormClosingEventArgs e)
+        public void FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("¿Desea cerrar la aplicación?", "Aviso",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                Application.ExitThread();
+            else
+                e.Cancel = true; //Se cancela el evento, el formulario no se cierra.
+        }
+
+        public void FormClosing_RegistrarCierreSesion(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show("¿Desea cerrar la aplicación?", "Aviso",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -214,7 +154,7 @@ namespace TP_ComidaRapida
                 e.Cancel = true; //Se cancela el evento, el formulario no se cierra.
         }
 
-        public void MostrarOcultarPassword(object sender, EventArgs e, TextBox txt)
+        public void Click_MostrarOcultarPassword(object sender, EventArgs e, TextBox txt)
         {
             if (!txt.UseSystemPasswordChar)
                 txt.UseSystemPasswordChar = true;

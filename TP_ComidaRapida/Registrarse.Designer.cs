@@ -262,7 +262,6 @@
             this.Name = "Registrarse";
             this.Text = "Registrarse";
             this.Activated += new System.EventHandler(this.Registrarse_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Registrarse_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

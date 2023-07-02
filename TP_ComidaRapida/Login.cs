@@ -17,16 +17,19 @@ namespace TP_ComidaRapida
         public Login()
         {
             InitializeComponent();
+
             cmb_usuario.Items.Add("");
             CargarUsuariosRecordados();
-            Controladores cs = new Controladores();
-            cs.ActualizarControles(this);
-            cmb_usuario.KeyPress += (sender, e) => cs.AlfanumericoMenorA(sender, e, 24);
-            btn_MostrarPassword.Click += (sender, e) => cs.MostrarOcultarPassword(sender, e, txt_password);
-            txt_password.KeyPress += (sender, e) => cs.AlfanumericoMenorA(sender, e, 15);
+
+            Eventos ev = new Eventos();
+            ev.ActualizarControles(this);
+            cmb_usuario.KeyPress += (sender, e) => ev.KeyPress_AlfanumericoMenorA(sender, e, 24);
+            btn_MostrarPassword.Click += (sender, e) => ev.Click_MostrarOcultarPassword(sender, e, txt_password);
+            txt_password.KeyPress += (sender, e) => ev.KeyPress_AlfanumericoMenorA(sender, e, 15);
+            this.FormClosing += ev.FormClosing;
         }
 
-        static string usuarioActual, password;
+        static string usuarioEnBD, passwordEnBD;
         static bool admin;
         static int idUsuario;
 
@@ -34,7 +37,7 @@ namespace TP_ComidaRapida
 
         public static string GetUsuarioActual()
         {
-            return usuarioActual;
+            return usuarioEnBD;
         }
 
         public static bool GetAdmin()
@@ -64,43 +67,57 @@ namespace TP_ComidaRapida
 
         private void btn_Ingresar_Click(object sender, EventArgs e)
         {
-            ConexionSQL bd = new ConexionSQL(); //Se crea un objeto de la clase ConexionSQL.
-            //SELECT usuario FROM Usuario WHERE usuario='combo_User.Text';
-            usuarioActual = Convert.ToString(bd.Select("usuario", "Usuario", $"usuario='{cmb_usuario.Text}' AND borradoLogico=0"));
-            //SELECT pass FROM Usuario WHERE pass='txt_passwordUser.Text' AND usuario='combo_User.Text';
-            password = Convert.ToString(bd.Select("pass", "Usuario",
-                $"pass='{txt_password.Text}' AND usuario='{cmb_usuario.Text}' AND borradoLogico=0"));
-            //SELECT administrador FROM Usuario WHERE usuario='combo_User.Text';
-            admin = Convert.ToBoolean(bd.Select("administrador", "Usuario", $"usuario='{cmb_usuario.Text}' AND borradoLogico=0"));
-
-            Controladores cs = new Controladores();
-            if (!cs.TextoEnBlanco(this))
+            try
             {
-                if (cmb_usuario.Text == usuarioActual && txt_password.Text == password)
-                {
-                    idUsuario = Convert.ToInt32(bd.Select("id", "Usuario", $"usuario='{usuarioActual}'"));
-                    string fechaInvertida = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-                    bd.InsertInto("Sesion", "idUsuario,ingresoSesion,salidaSesion",
-                        $"'{idUsuario}','{fechaInvertida}','2000/01/01 00:00:00'");
-                    RecordarLogin(checkBox_recordarSesion.Checked);
+                ConexionSQL bd = new ConexionSQL();
+                Validaciones va = new Validaciones();
 
-                    if (admin)
+                if (!va.TextoEnBlanco(this))
+                {
+                    //SELECT usuario FROM Usuario WHERE usuario='combo_User.Text';
+                    usuarioEnBD = Convert.ToString(bd.Select("usuario", "Usuario",
+                        $"usuario='{cmb_usuario.Text}' AND borradoLogico=0"));
+                    //SELECT pass FROM Usuario WHERE pass='txt_passwordUser.Text' AND usuario='combo_User.Text';
+                    passwordEnBD = Convert.ToString(bd.Select("pass", "Usuario",
+                        $"pass='{txt_password.Text}' AND usuario='{cmb_usuario.Text}' AND borradoLogico=0"));
+                    //SELECT administrador FROM Usuario WHERE usuario='combo_User.Text';
+                    admin = Convert.ToBoolean(bd.Select("administrador", "Usuario",
+                        $"usuario='{cmb_usuario.Text}' AND borradoLogico=0"));
+
+                    if (cmb_usuario.Text == usuarioEnBD && txt_password.Text == passwordEnBD)
                     {
-                        this.Hide();
-                        Gestiones gs = new Gestiones();
-                        gs.Show();
+                        idUsuario = Convert.ToInt32(bd.Select("id", "Usuario", $"usuario='{usuarioEnBD}'"));
+                        string fechaInvertida = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                        bd.InsertInto("Sesion", "idUsuario,ingresoSesion,salidaSesion",
+                            $"'{idUsuario}','{fechaInvertida}','2000/01/01 00:00:00'");
+                        RecordarLogin(checkBox_recordarSesion.Checked);
+
+                        if (admin)
+                        {
+                            this.Hide();
+                            Gestiones gs = new Gestiones();
+                            gs.Show();
+                        }
+                        else
+                        {
+                            this.Hide();
+                            Menu mu = new Menu();
+                            mu.Show();
+                        }
                     }
                     else
                     {
-                        this.Hide();
-                        Menu mu = new Menu();
-                        mu.Show();
+                        MessageBox.Show("Usuario o contraseña incorrecto.");
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Usuario o contraseña incorrecto.");
-                }
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show(ex.Message, "Valores nulos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -121,7 +138,10 @@ namespace TP_ComidaRapida
                     $"usuario='{cmb_usuario.Text}' AND borradoLogico=0 AND recordarSesion=1");
                 cmb_usuario.BackColor = Color.Gold;
                 txt_password.BackColor = Color.Gold;
+                checkBox_recordarSesion.Checked = true;
             }
+            else
+                checkBox_recordarSesion.Checked = false;
         }
 
         private void cmb_usuario_TextChanged(object sender, EventArgs e)
@@ -133,18 +153,6 @@ namespace TP_ComidaRapida
         private void Login_Load(object sender, EventArgs e)
         {
             cmb_usuario.DropDownStyle = ComboBoxStyle.DropDown;
-            cmb_usuario.AutoCompleteMode = AutoCompleteMode.Suggest;
-            cmb_usuario.AutoCompleteSource = AutoCompleteSource.ListItems;
-        }
-
-        private void Login_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //El evento se produce al intentar cerrar el formulario.
-            if (MessageBox.Show("¿Desea cerrar la aplicación?", "Aviso",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                Application.ExitThread();
-            else
-                e.Cancel = true; //Se cancela el evento, el formulario no se cierra.
         }
     }
 }

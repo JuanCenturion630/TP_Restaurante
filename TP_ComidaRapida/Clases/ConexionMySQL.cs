@@ -24,16 +24,23 @@ namespace TP_ComidaRapida
             try
             {
                 conexion.Open(); //Abre conexión con el servidor.
+
                 string consulta = $"SELECT {columna} FROM {tabla}"; //SELECT usuario FROM Usuario
                 if (!string.IsNullOrEmpty(where)) //Si la variable "where" no es un espacio en blanco.
                     consulta += $" WHERE {where}"; //WHERE usuario='jcenturion630'
+
                 MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
-                fila = comando.ExecuteScalar(); //Ejecuta la consulta y obtiene una fila como máximo.
+                fila = comando.ExecuteScalar(); //Ejecuta la consulta.
+
                 conexion.Close(); //Cierra conexión con el servidor.
+            }
+            catch(MySqlException ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al mostrar datos: " + ex.Message);
+                MessageBox.Show("Error:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return fila;
         }
@@ -46,16 +53,23 @@ namespace TP_ComidaRapida
             try
             {
                 conexion.Open(); //Abre conexión con el servidor.
+
                 //INSERT INTO Usuario (administrador, nombre, apellido, usuario...) 
                 //       VALUES (1,'Juan','Centurión','jcenturion630'...)
                 string consulta = $"INSERT INTO {tabla} ({columna}) VALUES ({valor})";
+
                 MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
                 comando.ExecuteNonQuery(); //Ejecuta la consulta.
+
                 conexion.Close(); //Cierra conexión con el servidor.
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al insertar datos: " + ex.Message);
+                MessageBox.Show("Error:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }        
 
@@ -67,16 +81,23 @@ namespace TP_ComidaRapida
             try
             {
                 conexion.Open(); //Abre conexión con el servidor.
+
                 string consulta = $"UPDATE {tabla} SET {columna} = '{nuevoValor}'"; //UPDATE Usuario SET usuario='jvazquez630'
                 if (!string.IsNullOrEmpty(where)) //Si la variable "where" no es un espacio en blanco.
                     consulta += $" WHERE {where}"; //WHERE usuario='jcenturion630'
+
                 MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
                 comando.ExecuteNonQuery(); //Ejecuta la consulta.
+
                 conexion.Close(); //Cierra conexión con el servidor.
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar datos: " + ex.Message);
+                MessageBox.Show("Error:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -88,16 +109,23 @@ namespace TP_ComidaRapida
             try
             {
                 conexion.Open(); //Abre conexión con el servidor.
+
                 string consulta = $"DELETE FROM {tabla}"; //Ej.: DELETE FROM Usuario
                 if (!string.IsNullOrEmpty(where)) //Si la variable "where" no es un espacio en blanco.
                     consulta += $" WHERE {where}"; //Ej.: WHERE usuario='jcenturion630'
+
                 MySqlCommand comando = new MySqlCommand(consulta, conexion); //Conecta la consulta con la BD.
                 comando.ExecuteNonQuery(); //Ejecuta la consulta.
+
                 conexion.Close(); //Cierra conexión con el servidor.
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al borrar datos: " + ex.Message);
+                MessageBox.Show("Error:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -117,9 +145,13 @@ namespace TP_ComidaRapida
 
                 conexion.Close(); //Cierra conexión con el servidor.
             }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar el ComboBox: " + ex.Message);
+                MessageBox.Show("Error:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -142,9 +174,13 @@ namespace TP_ComidaRapida
 
                 conexion.Close(); //Cierra conexión con el servidor.
             }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar el ComboBox: " + ex.Message);
+                MessageBox.Show("Error:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -175,9 +211,13 @@ namespace TP_ComidaRapida
 
                 conexion.Close(); //Cierra conexión con el servidor.
             }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar el ComboBox: " + ex.Message);
+                MessageBox.Show("Error:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -190,9 +230,13 @@ namespace TP_ComidaRapida
                 comando.ExecuteNonQuery(); //Ejecuta la consulta.
                 conexion.Close(); //Cierra conexión con el servidor.
             }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al actualizar datos: " + ex.Message);
+                MessageBox.Show("Error:\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

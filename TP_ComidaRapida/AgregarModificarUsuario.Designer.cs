@@ -28,22 +28,71 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarModificarUsuario));
             this.btn_Modificar = new System.Windows.Forms.Button();
             this.btn_Agregar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_InicioSesion
             // 
+            this.btn_InicioSesion.BackColor = System.Drawing.Color.Transparent;
             this.btn_InicioSesion.FlatAppearance.BorderSize = 0;
             this.btn_InicioSesion.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btn_InicioSesion.ForeColor = System.Drawing.Color.White;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.ForeColor = System.Drawing.Color.White;
+            // 
+            // label4
+            // 
+            this.label4.ForeColor = System.Drawing.Color.White;
+            // 
+            // label5
+            // 
+            this.label5.ForeColor = System.Drawing.Color.White;
             // 
             // btn_MostrarPassword
             // 
+            this.btn_MostrarPassword.BackColor = System.Drawing.Color.Transparent;
             this.btn_MostrarPassword.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btn_MostrarPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_MostrarPassword.ForeColor = System.Drawing.Color.White;
+            this.btn_MostrarPassword.UseVisualStyleBackColor = false;
+            // 
+            // check_Empleado
+            // 
+            this.check_Empleado.BackColor = System.Drawing.Color.Transparent;
+            this.check_Empleado.ForeColor = System.Drawing.Color.White;
+            // 
+            // check_Admin
+            // 
+            this.check_Admin.BackColor = System.Drawing.Color.Transparent;
+            this.check_Admin.ForeColor = System.Drawing.Color.White;
+            this.check_Admin.UseVisualStyleBackColor = false;
+            // 
+            // label8
+            // 
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.ForeColor = System.Drawing.Color.White;
             // 
             // btn_Registrarse
             // 
+            this.btn_Registrarse.BackColor = System.Drawing.Color.Transparent;
             this.btn_Registrarse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btn_Registrarse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Registrarse.ForeColor = System.Drawing.Color.White;
             // 
             // btn_Modificar
             // 
@@ -69,12 +118,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(260, 271);
             this.Controls.Add(this.btn_Agregar);
             this.Controls.Add(this.btn_Modificar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AgregarModificarUsuario";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AgregarModificarUsuario";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Registrarse_FormClosing);
             this.Controls.SetChildIndex(this.btn_Modificar, 0);
             this.Controls.SetChildIndex(this.btn_Registrarse, 0);
             this.Controls.SetChildIndex(this.btn_Agregar, 0);

@@ -31,11 +31,11 @@
             this.txt_Ticket = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // rtxt_Ticket
+            // txt_Ticket
             // 
             this.txt_Ticket.Location = new System.Drawing.Point(3, 3);
             this.txt_Ticket.Multiline = true;
-            this.txt_Ticket.Name = "rtxt_Ticket";
+            this.txt_Ticket.Name = "txt_Ticket";
             this.txt_Ticket.ReadOnly = true;
             this.txt_Ticket.Size = new System.Drawing.Size(355, 338);
             this.txt_Ticket.TabIndex = 0;
@@ -48,7 +48,6 @@
             this.Controls.Add(this.txt_Ticket);
             this.Name = "Ticket";
             this.Text = "Ticket";
-            this.Load += new System.EventHandler(this.Ticket_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
