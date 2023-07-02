@@ -1,9 +1,9 @@
 USE BD_ComidaRapida;
 
-INSERT INTO Usuario(administrador,nombre,apellido,usuario,pass,fechaNacimiento,edad,horaIngreso,horaSalida,borradoLogico)
-VALUES (1,"Juan","Centurión","jcenturion630","12345678","2000-03-06",23,"08:00:00","16:00:00",0),
-		(1,"Leandro","Deferrari","ldeferrari999","10101010","1990-01-01",30,"16:00:00","23:59:59",0),
-		(0,"Diego","Hidalgo","dhidalgo999","11110000","2001/01/01",22,"16:00:00","23:59:59",0);
+INSERT INTO Usuario(administrador,nombre,apellido,usuario,pass,fechaNacimiento,edad,horaIngreso,horaSalida,borradoLogico,recordarSesion)
+VALUES (1,"Juan","Centurión","jcenturion630","12345678","2000-03-06",23,"08:00:00","16:00:00",0,1),
+		(1,"Leandro","Deferrari","ldeferrari999","10101010","1990-01-01",30,"16:00:00","23:59:59",0,0),
+		(0,"Diego","Hidalgo","dhidalgo999","11110000","2001/01/01",22,"16:00:00","23:59:59",0,0);
 SELECT * FROM Usuario;
 
 INSERT INTO Empresa(nombre,CUIT,ingBruto,direccion)
@@ -47,6 +47,29 @@ BEGIN
 END //
 DELIMITER ;
 CALL Crear_Ticket();
+
+/* STORE PROCEDURE para mostrar los datos de usuario y sesión. */
+DELIMITER //
+CREATE PROCEDURE Mostrar_Usuarios()
+BEGIN
+	SELECT administrador AS Admin, nombre AS Nombre, apellido AS Apellido, usuario AS Usuario, pass AS Password,
+			fechaNacimiento AS Nacimiento, edad AS Edad, horaIngreso AS Ingreso, horaSalida AS Egreso
+	FROM Usuario
+	WHERE borradoLogico=0;
+END //
+DELIMITER ;
+CALL Mostrar_Usuarios();
+
+/* STORE PROCEDURE para mostrar los datos de usuario y sesión. */
+DELIMITER //
+CREATE PROCEDURE Mostrar_Comidas()
+BEGIN
+	SELECT nombre AS Comida,precio AS Precio
+	FROM Comida
+	WHERE borradoLogico=0;
+END //
+DELIMITER ;
+CALL Mostrar_Comidas();
 
 /* STORE PROCEDURE con JOINs para unificar los datos de usuario y sesión. */
 DELIMITER //
